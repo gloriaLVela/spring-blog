@@ -33,5 +33,4 @@ public class PostController {
         return "create a new post";
     }
 
-
 }
