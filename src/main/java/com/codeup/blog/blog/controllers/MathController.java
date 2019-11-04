@@ -28,7 +28,10 @@ public class MathController {
 
     @RequestMapping(path = "/divide/{number1}/by/{number2}", method = RequestMethod.GET)
     @ResponseBody
-    public String divideNumbers(@PathVariable int number1, @PathVariable int number2) {
-        return "The division is " + Integer.toString(number1 / number2) + "!";
+    public String divideNumbers(@PathVariable double number1, @PathVariable double number2) {
+        if(number2 == 0) {
+            return number1 + " cannot be divided by zero";
+        }
+        return "The division is " + Double.toString(number1 / number2) + "!";
     }
 }
