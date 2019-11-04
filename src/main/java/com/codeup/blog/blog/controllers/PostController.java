@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class PostController {
 
-
+    // Fix it
     @RequestMapping(path = "/posts", method = RequestMethod.GET)
     @ResponseBody
     public String postIndexPage() {
@@ -16,7 +16,7 @@ public class PostController {
     @RequestMapping(path = "/posts/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String postIndividualPost(@PathVariable String id) {
-        return "view an individual post with the id "+ id;
+        return "view an individual post with the id " + id;
     }
 
 
