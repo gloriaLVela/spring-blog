@@ -1,30 +1,42 @@
 package com.codeup.blog.blog.controllers;
 
+import com.codeup.blog.blog.Post;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @Controller
 public class PostController {
 
+    ArrayList<Post> postList;
+
+    public PostController() {
+        postList = new ArrayList<Post>();
+
+        postList.add(new Post(1, "first ad", "new"));
+        postList.add(new Post(1, "second ad", "new"));
+        postList.add(new Post(2, "third ad", "used"));
+    }
+
     // Fix it
-    @RequestMapping(path = "/posts", method = RequestMethod.GET)
-    @ResponseBody
-    public String index() {
-        return "posts index page";
-    }
+    @GetMapping("/posts")
+    public String index(Model viewModel) {
 
-    @RequestMapping(path = "/posts/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public String showPost(@PathVariable long id) {
-        return "view an individual post with the id " + id;
+        viewModel.addAttribute("posts", postList);
+
+        return "posts/index";
     }
 
 
-    @RequestMapping(path = "/posts/create", method = RequestMethod.GET)
-    @ResponseBody
-    public String showForm() {
-        return "view the form for creating a post";
+    @GetMapping("/posts/{id}")
+    public String show(@PathVariable long id, Model viewModel) {
+        viewModel.addAttribute("post", postList.get((int) id - 1));
+        return "posts/show";
     }
+
+
 
     @PostMapping(path = "/posts/create")
     @ResponseBody
