@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Show posts</title>
+    <th:block th:replace="fragments/header :: main-header"/>
 </head>
 <body>
 
 <div th:replace="fragments/navbar :: main-navbar"></div>
 
-<h1>Featured Posts</h1>
-
-<div class="card" th:each="post : ${posts}">
-    <h1 th:text="${post.title}"></h1>
-    <p th:text="${post.body}"></p>
-    <input type="hidden" name="id" th:value="${post.id}">
-</div>
+<main>
+    <header><h1>Featured Posts</h1></header>
+    <section class="container">
+        <div id="postList">
+            <div class="card" th:each="post : ${posts}">
+                <h4 class="card-title  text-center" th:text="${post.title}"></h4>
+                <p  class="card-body" th:text="${post.body}"></p>
+                <input type="hidden" name="id" th:value="${post.id}">
+            </div>
+        </div>
+    </section>
+</main>
 
 
 </body>
