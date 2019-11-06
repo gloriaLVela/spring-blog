@@ -20,7 +20,7 @@ public class PostController {
         postList.add(new Post(2, "third ad", "used"));
     }
 
-    // Fix it
+
     @GetMapping("/posts")
     public String index(Model viewModel) {
 
