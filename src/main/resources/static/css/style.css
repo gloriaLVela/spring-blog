@@ -27,7 +27,14 @@ li{
     margin-right: 2em;
 }
 
+textare{
+    cols:"100";
+    rows:"50";
+}
 
+.btn-delete{
+    width: 5em;
+}
 .card {
     display: flex;
     align-content: center;
@@ -53,6 +60,11 @@ li{
     color:#e88e01;
 }
 
+#buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
 #postList {
     display: flex;
     flex-direction: column;
