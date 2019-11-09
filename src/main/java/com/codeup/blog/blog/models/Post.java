@@ -1,12 +1,24 @@
-package com.codeup.blog.blog;
+package com.codeup.blog.blog.models;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 
+@Entity
 public class Post {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, columnDefinition = "int(11) UNSIGNED")
     private long id;
+
     private long userId;
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String body;
+
+    public Post(){
+
+    }
 
     public Post(long id, long userId, String title, String body) {
         this.id = id;
@@ -22,6 +34,10 @@ public class Post {
         this.body = body;
     }
 
+    public Post(String title, String body) {
+        this.title = title;
+        this.body = body;
+    }
 
 
     public long getId() {

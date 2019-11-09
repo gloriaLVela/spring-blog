@@ -14,9 +14,18 @@
     <section class="container">
         <div id="postList">
             <div class="card" th:each="post : ${posts}">
-                <h4 class="card-title  text-center" th:text="${post.title}"></h4>
+                <a th:href="@{'posts/' + ${post.id} + '/update'}">
+                    <h1 class="card-title  text-center" th:text="${post.title}"></h1>
+                </a>
                 <p  class="card-body" th:text="${post.body}"></p>
-                <input type="hidden" name="id" th:value="${post.id}">
+                <div id="buttons">
+                <form th:action="'/posts/' + ${post.id} + '/update'" method="get">
+                    <input class="btn btn-warning btn-sm" type="submit" value="Update">
+                </form>
+                <form th:action="'/posts/' + ${post.id} + '/delete'" method="post">
+                    <input class="btn btn-danger btn-sm" type="submit" value="Delete">
+                </form>
+                </div>
             </div>
         </div>
     </section>

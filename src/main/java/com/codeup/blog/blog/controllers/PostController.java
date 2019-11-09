@@ -1,30 +1,26 @@
 package com.codeup.blog.blog.controllers;
 
-import com.codeup.blog.blog.Post;
+import com.codeup.blog.blog.Repositories.PostRepository;
+import com.codeup.blog.blog.models.Post;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 
 @Controller
 public class PostController {
 
-    ArrayList<Post> postList;
+    private final PostRepository postDao ;
 
-    public PostController() {
-        postList = new ArrayList<Post>();
-
-        postList.add(new Post(1, "first ad", "new"));
-        postList.add(new Post(1, "second ad", "new"));
-        postList.add(new Post(2, "third ad", "used"));
+    public PostController(PostRepository postDao) {
+        this.postDao = postDao;
     }
 
 
     @GetMapping("/posts")
     public String index(Model viewModel) {
 
-        viewModel.addAttribute("posts", postList);
+        viewModel.addAttribute("posts", postDao.findAll());
 
         return "posts/index";
     }
@@ -32,19 +28,45 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String show(@PathVariable long id, Model viewModel) {
-        viewModel.addAttribute("post", postList.get((int) id - 1));
+        viewModel.addAttribute("post", postDao.getOne(id));
         return "posts/show";
     }
 
 
+    @GetMapping( "/posts/create")
+    public String showCreatePost(Model vModel) {
+        vModel.addAttribute("post", new Post());
+        return "/posts/create";
+    }
 
-    @PostMapping(path = "/posts/create")
-    @ResponseBody
-    public String createPost(@RequestParam String title, @RequestParam String body) {
-        System.out.println("title = " + title);
-        System.out.println("body = " + body);
-        System.out.println("create a new post print");
-        return "create a new post";
+    @PostMapping("/posts/create")
+    public String create(@ModelAttribute Post post) {
+        postDao.save(post);
+        return "redirect:/posts";
+    }
+
+    @GetMapping( "/posts/{id}/update")
+    public String updatePost(@PathVariable long id, Model viewModel) {
+        viewModel.addAttribute("post", postDao.getOne(id));
+        return "posts/update";
+    }
+
+    @PostMapping("/posts/{id}/update")
+    public String update( @PathVariable long id, @RequestParam String title, @RequestParam String body) {
+        Post oldPost = postDao.getOne(id);
+        oldPost.setTitle(title);
+        oldPost.setBody(body);
+        postDao.save(oldPost);
+        return "redirect:/posts/" + id;
+    }
+
+
+
+    @PostMapping("/posts/{id}/delete")
+    public String delete(@PathVariable long id) {
+//        System.out.println("id = " + id);
+        postDao.deleteById(id);
+        return "redirect:/posts";
     }
 
 }
