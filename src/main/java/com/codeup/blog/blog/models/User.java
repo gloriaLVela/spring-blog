@@ -1,10 +1,7 @@
 package com.codeup.blog.blog.models;
 
-
-import com.codeup.blog.blog.Repositories.UserRepository;
-import com.codeup.blog.blog.util.Password;
-
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class User {
@@ -14,17 +11,26 @@ public class User {
     @Column(nullable = false, columnDefinition = "int(11) UNSIGNED")
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique=true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Post> posts;
 
     public User() {}
+
+    public User(User copy) {
+        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+    }
 
     public User(String username, String email, String password) {
         this.username = username;
@@ -68,6 +74,17 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = Password.hash(password);
+        this.password = password;
     }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+
 }

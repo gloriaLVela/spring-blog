@@ -14,10 +14,14 @@
     <section class="container">
         <div id="postList">
             <div class="card" th:each="post : ${posts}">
-                <a th:href="@{'posts/' + ${post.id} + '/update'}">
+                <a th:href="@{'posts/' + ${post.id}}">
                     <h1 class="card-title  text-center" th:text="${post.title}"></h1>
                 </a>
                 <p  class="card-body" th:text="${post.body}"></p>
+                <h3>Categories</h3>
+                <th:block th:each="category : ${post.categories}">
+                    <div th:text="${category.description}"></div>
+                </th:block>
                 <div id="buttons">
                 <form th:action="'/posts/' + ${post.id} + '/update'" method="get">
                     <input class="btn btn-warning btn-sm" type="submit" value="Update">

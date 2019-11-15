@@ -12,6 +12,10 @@
 <div class="card">
     <h1 th:text="${post.title}"></h1>
     <textarea th:field="${post.body}"/>
+    <h3>Categories</h3>
+    <th:block th:each="category : ${categories}">
+        <div th:text="${category.description}"></div>
+    </th:block>
     <input type="hidden" name="id" th:value="${post.id}">
 </div>
 

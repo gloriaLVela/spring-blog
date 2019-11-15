@@ -1,6 +1,7 @@
 package com.codeup.blog.blog.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Post {
@@ -10,28 +11,28 @@ public class Post {
     @Column(nullable = false, columnDefinition = "int(11) UNSIGNED")
     private long id;
 
-    private long userId;
     private String title;
 
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    public Post(){
+    @OneToOne(mappedBy = "post")
+    private PostDetails postDetails;
 
-    }
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public Post(long id, long userId, String title, String body) {
-        this.id = id;
-        this.userId = userId;
-        this.title = title;
-        this.body = body;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="post_categories",
+            joinColumns={@JoinColumn(name="post_id")},
+            inverseJoinColumns={@JoinColumn(name="category_id")}
+    )
+    private List<Category> categories;
 
-    }
+    public Post() {
 
-    public Post(long userId, String title, String body) {
-        this.userId = userId;
-        this.title = title;
-        this.body = body;
     }
 
     public Post(String title, String body) {
@@ -46,14 +47,6 @@ public class Post {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
     }
 
     public String getTitle() {
@@ -72,16 +65,28 @@ public class Post {
         this.body = body;
     }
 
-
-    @Override
-    public String toString() {
-        return "Ad{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", title='" + title + '\'' +
-                ", body='" + body + '\'' +
-                '}';
+    public PostDetails getPostDetails() {
+        return postDetails;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setPostDetails(PostDetails postDetails) {
+        this.postDetails = postDetails;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
 }
 

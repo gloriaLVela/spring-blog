@@ -10,21 +10,11 @@
 <div th:replace="fragments/navbar :: main-navbar"></div>
 <section class="container">
     <h1>Update Post</h1>
-    <form th:action="@{'/posts/' + ${id} + '/update'}" th:method="post"  th:object="${post}">
+    <form th:action="@{'/category/' + ${id} + '/edit'}" th:method="post"  th:object="${category}">
         <div class="container">
             <div class="form-group">
-                Title:
-                <input th:field="*{title}"/>
-            </div>
-            <div class="form-group">
                 Body:
-                <textarea th:field="*{body}"/>
-            </div>
-            <div>
-                <th:block th:each="category : ${categories}">
-                    <input type="checkbox" th:field="*{categories}" name="categories" th:value="${category.id}"/>
-                    <label th:text="${category.description}"></label>
-                </th:block>
+                <textarea th:field="*{description}"/>
             </div>
             <input type="hidden" th:field="*{id}">
             <input class="btn btn-warning" type="submit" value="Update">

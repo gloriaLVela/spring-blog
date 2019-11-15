@@ -1,4 +1,4 @@
-package com.codeup.blog.blog;
+package com.codeup.blog.blog.models;
 
 import com.codeup.blog.blog.services.UserDetailsLoader;
 import org.springframework.context.annotation.Bean;
@@ -36,19 +36,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 /* Login configuration */
                 .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/posts") // user's home page, it can be any URL
-                .permitAll() // Anyone can go to the login page
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/posts") // user's home page, it can be any URL
+                    .permitAll() // Anyone can go to the login page
                 /* Logout configuration */
                 .and()
-                .logout()
-                .logoutSuccessUrl("/login?logout") // append a query string value
-                /* Pages that can be viewed without having to log in */
+                    .logout()
+                    .logoutSuccessUrl("/login?logout") // append a query string value
+                    /* Pages that can be viewed without having to log in */
                 .and()
-                .authorizeRequests()
-                .antMatchers("/", "/posts") // anyone can see the home and the ads pages
-                .permitAll()
-                /* Pages that require authentication */
+                    .authorizeRequests()
+                    .antMatchers("/", "/posts") // anyone can see the home and the posts pages
+                    .permitAll()
+                    /* Pages that require authentication */
                 .and()
                 .authorizeRequests()
                 .antMatchers(
