@@ -1,9 +1,10 @@
 package com.codeup.blog.blog.controllers;
 
 import com.codeup.blog.blog.models.Category;
-import com.codeup.blog.blog.models.Post;
 import com.codeup.blog.blog.models.User;
 import com.codeup.blog.blog.repositories.CategoryRepository;
+
+import com.codeup.blog.blog.repositories.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
 
     private final CategoryRepository categoryDao;
+    private final UserRepository userDao;
 
-    public CategoryController(CategoryRepository categoryDao) {
+    public CategoryController(CategoryRepository categoryDao, UserRepository userDao) {
         this.categoryDao = categoryDao;
+        this.userDao = userDao;
     }
 
 
@@ -27,14 +30,17 @@ public class CategoryController {
 
 
     @PostMapping("/category/add")
-    public String create(@ModelAttribute Category category) {
-        categoryDao.save(category);
+    public String create(@ModelAttribute Category newCategory) {
+        User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        newCategory.setUser(loggedUser);
+        categoryDao.save(newCategory);
         return "redirect:/category/maintain";
     }
 
     @GetMapping("category/maintain")
     public String showCategory(Model viewModel) {
-        viewModel.addAttribute("categories", categoryDao.findAll());
+        User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        viewModel.addAttribute("categories", userDao.findByUsername(loggedUser.getUsername()).getCategories());
         return "/category/maintain";
     }
 

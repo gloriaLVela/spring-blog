@@ -11,10 +11,9 @@
 
 <section class="container">
 
-    <h1 class="display-3 text-center">Featured Categories</h1>
     <div class="container">
         <div class="form-group">
-            <h1> Category</h1>
+            <h1 class="page_title"> Category</h1>
 
             <div class="card" th:each="category : ${categories}">
                 <a th:href="@{'category/' + ${category.id} + '/edit'}">

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Show posts</title>
+    <th:block th:replace="fragments/header :: main-header"/>
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: main-navbar"></div>
+
+
+<div class="container">
+    <h1 class="page_title">Add the topic</h1>
+    <form class="form-group" th:action="@{/posts/details}" th:method="post" th:object="${blogDetails}" >
+        <label for="details">Topic description</label>
+
+        <input id="details" th:field="*{topic_description}"/>
+
+        <input type="submit"/>
+    </form>
+</div>
+
+</body>
+</html>

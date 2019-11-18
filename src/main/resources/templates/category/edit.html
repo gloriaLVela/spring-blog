@@ -9,7 +9,7 @@
 
 <div th:replace="fragments/navbar :: main-navbar"></div>
 <section class="container">
-    <h1>Update Post</h1>
+    <h1 class="page_title">Update Post</h1>
     <form th:action="@{'/category/' + ${id} + '/edit'}" th:method="post"  th:object="${category}">
         <div class="container">
             <div class="form-group">

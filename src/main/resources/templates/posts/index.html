@@ -10,26 +10,26 @@
 <div th:replace="fragments/navbar :: main-navbar"></div>
 
 <main>
-    <header><h1>Featured Posts</h1></header>
+    <header><h1 class="page_title">Featured Posts</h1></header>
     <section class="container">
         <div id="postList">
-            <div class="card" th:each="post : ${posts}">
+            <div th:each="post : ${posts}">
                 <a th:href="@{'posts/' + ${post.id}}">
-                    <h1 class="card-title  text-center" th:text="${post.title}"></h1>
+                    <h1 class="section-heading" th:text="${post.title}"></h1>
                 </a>
                 <p  class="card-body" th:text="${post.body}"></p>
                 <h3>Categories</h3>
                 <th:block th:each="category : ${post.categories}">
                     <div th:text="${category.description}"></div>
                 </th:block>
-                <div id="buttons">
-                <form th:action="'/posts/' + ${post.id} + '/update'" method="get">
-                    <input class="btn btn-warning btn-sm" type="submit" value="Update">
-                </form>
-                <form th:action="'/posts/' + ${post.id} + '/delete'" method="post">
-                    <input class="btn btn-danger btn-sm" type="submit" value="Delete">
-                </form>
-                </div>
+<!--                <div id="buttons">-->
+<!--                <form th:action="'/posts/' + ${post.id} + '/update'" method="get">-->
+<!--                    <input class="btn btn-warning btn-sm" type="submit" value="Update">-->
+<!--                </form>-->
+<!--                <form th:action="'/posts/' + ${post.id} + '/delete'" method="post">-->
+<!--                    <input class="btn btn-danger btn-sm" type="submit" value="Delete">-->
+<!--                </form>-->
+<!--                </div>-->
             </div>
         </div>
     </section>

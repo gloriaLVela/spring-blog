@@ -20,8 +20,25 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false, columnDefinition =  "Varchar(255)")
+    private String blog_description;
+
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+//    private BlogDetails blogDetails;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Post> posts;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Category> categories;
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
 
     public User() {}
 
@@ -32,10 +49,18 @@ public class User {
         password = copy.password;
     }
 
+    public User(String username, String email, String password, String blog_description) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.blog_description = blog_description;
+    }
+
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
-        setPassword(password);
+        this.password = password;
+        //setPassword(password);
     }
 
     public User(long id, String username, String email, String password) {
@@ -86,5 +111,29 @@ public class User {
         this.posts = posts;
     }
 
+    public String getBlog_description() {
+        return blog_description;
+    }
 
+    public void setBlog_description(String blog_description) {
+        this.blog_description = blog_description;
+    }
+//    public BlogDetails getBlogDetails() {
+//        return blogDetails;
+//    }
+//
+//    public void setBlogDetails(BlogDetails blogDetails) {
+//        this.blogDetails = blogDetails;
+//    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", posts=" + posts +
+                '}';
+    }
 }

@@ -7,10 +7,14 @@
 <body>
 <div th:replace="fragments/navbar :: main-navbar"></div>
 <div class="container">
-    <h1>Create an account</h1>
+    <h1 class="page_title">Create an account</h1>
     <form th:action="@{/sign-up}" method="POST" th:object="${user}" class="form-group">
         <label for="username">User name</label>
         <input id="username" th:field="*{username}"/>
+        <br>
+        <label for="details">Topic description</label>
+        <input id="details" th:field="*{blog_description}"/>
+
         <br>
         <label for="email">Email</label>
         <input id="email" th:field="*{email}"/>
