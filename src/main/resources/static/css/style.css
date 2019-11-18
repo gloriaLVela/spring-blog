@@ -1,9 +1,9 @@
-body {
-    font-family: 'Indie Flower', cursive;
-    background-color: #eef2db;
-    /*color: #A0522D;*/
-    /*font-family: 'Source Code Pro', monospace;*/
-}
+/*body {*/
+/*    font-family: 'Indie Flower', cursive;*/
+/*    !*background-color: #eef2db;*!*/
+/*    !*color: #A0522D;*!*/
+/*    !*font-family: 'Source Code Pro', monospace;*!*/
+/*}*/
 
 h1 {
     color: #1a3f13 ;
@@ -40,14 +40,14 @@ li{
     box-shadow: .2em .2em .2em .2em #888888;
 }
 
-.card-title {
-    /*color: #3F3C3C;*/
-    text-shadow: .1em .1em lightgrey;
-}
+/*.card-title {*/
+/*    !*color: #3F3C3C;*!*/
+/*    text-shadow: .1em .1em lightgrey;*/
+/*}*/
 
-.card-body{
-    color: #a8a660;
-}
+/*.card-body{*/
+/*    color: #a8a660;*/
+/*}*/
 
 .lightgreen {
     color:#dadfbc;
@@ -55,7 +55,9 @@ li{
 .orange {
     color:#e88e01;
 }
-
+.page_title {
+    margin-top: 1.5em;
+}
 #buttons{
     display: flex;
     flex-direction: row;

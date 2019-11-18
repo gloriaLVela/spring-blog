@@ -38,8 +38,8 @@ public class PostController {
 
     @GetMapping("/posts")
     public String index(Model viewModel) {
-        User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<Post> posts = userDao.getOne(loggedUser.getId()).getPosts();
+
+        List<Post> posts = postDao.findAll();
         for (Post currentPost : posts) {
             currentPost.getCategories();
         }
@@ -60,7 +60,10 @@ public class PostController {
     @GetMapping("/posts/create")
     public String showCreatePost(Model vModel) {
         vModel.addAttribute("post", new Post());
-        vModel.addAttribute("categories", categoryDao.findAll());
+        User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //loggedUser.getCategories();
+        //vModel.addAttribute("categories", categoryDao.findAll());
+        vModel.addAttribute("categories", userDao.findByUsername(loggedUser.getUsername()).getCategories());
         return "/posts/create";
     }
 
@@ -69,9 +72,7 @@ public class PostController {
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         newPost.setUser(loggedUser);
         Category category;
-
-//        System.out.println("categories = " + categories);
-//        Get the categories
+//      Get the categories
         if (categories != null) {
             List<Category> newCategories = new ArrayList<>();
 
@@ -83,7 +84,8 @@ public class PostController {
             newPost.setCategories(newCategories);
         }
         postDao.save(newPost);
-        return "redirect:/posts";
+        return "redirect:/myPosts";
+        //return "redirect:/posts";
     }
 
     @GetMapping("/posts/{id}/historyOfPost")
@@ -98,17 +100,17 @@ public class PostController {
     public String updatePost(@PathVariable long id, Model viewModel) {
         viewModel.addAttribute("post", postDao.getOne(id));
         List<Category> listCategories = postDao.getOne(id).getCategories();
-        System.out.println("listCategories = " + listCategories);
-        if (! listCategories.isEmpty()) {
+        User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!listCategories.isEmpty()) {
             viewModel.addAttribute("categories", postDao.getOne(id).getCategories());
         } else {
-            viewModel.addAttribute("categories", categoryDao.findAll());
+            viewModel.addAttribute("categories", userDao.findByUsername(loggedUser.getUsername()).getCategories());
         }
         return "posts/update";
     }
 
     @PostMapping("/posts/{id}/update")
-    public String update(@PathVariable long id, @RequestParam String title, @RequestParam String body, @RequestParam(value = "categories", required = false) int[] categories ) {
+    public String update(@PathVariable long id, @RequestParam String title, @RequestParam String body, @RequestParam(value = "categories", required = false) int[] categories) {
         Post oldPost = postDao.getOne(id);
         Category category;
         oldPost.setTitle(title);
