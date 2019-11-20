@@ -16,9 +16,11 @@
     </div>
     <div th:case="'Forbidden'">
         <h1>You don't have permission to view this page.</h1>
+        <h1 th:text="${error}"></h1>
+
     </div>
 </th:block>
-<h1 th:text="'Ooops, ' + ${error}"></h1>
+<h1 th:text="' Ooops, ' + ${error}"></h1>
 </iframe>
 </body>
 </html>

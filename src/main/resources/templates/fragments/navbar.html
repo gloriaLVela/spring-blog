@@ -11,6 +11,8 @@
         <li><a href="/posts">Featured Posts</a></li>
         <li sec:authorize="isAuthenticated()"><a href="/category/maintain">Categories</a></li>
         <li sec:authorize="isAuthenticated()"><a href="/category/add">Create a new category</a></li>
+        <li sec:authorize="isAuthenticated()"><a href="/fileupload">Upload file</a></li>
+
         <li sec:authorize="isAnonymous()"><a href="/register">Register</a></li>
         <li sec:authorize="isAnonymous()"><a href="/login">Login</a></li>
         <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
