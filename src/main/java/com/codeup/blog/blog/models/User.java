@@ -23,6 +23,9 @@ public class User {
     @Column(nullable = false, columnDefinition =  "Varchar(255)")
     private String blog_description;
 
+    @Column(nullable = false, columnDefinition =  "Varchar(255)")
+    private String blog_image;
+
 //    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
 //    private BlogDetails blogDetails;
 

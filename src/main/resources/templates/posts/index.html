@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Show posts</title>
@@ -18,10 +18,16 @@
                     <h1 class="section-heading" th:text="${post.title}"></h1>
                 </a>
                 <p  class="card-body" th:text="${post.body}"></p>
-                <h3>Categories</h3>
-                <th:block th:each="category : ${post.categories}">
-                    <div th:text="${category.description}"></div>
-                </th:block>
+                <div th:if="${post.getCategories().size() > 0}">
+                    <h3>Categories</h3>
+                    <th:block th:each="category : ${post.categories}">
+                        <div th:text="${category.description}"></div>
+                    </th:block>
+                </div>
+<!--                <h3>Categories</h3>-->
+<!--                <th:block th:each="category : ${post.categories}">-->
+<!--                    <div th:text="${category.description}"></div>-->
+<!--                </th:block>-->
 <!--                <div id="buttons">-->
 <!--                <form th:action="'/posts/' + ${post.id} + '/update'" method="get">-->
 <!--                    <input class="btn btn-warning btn-sm" type="submit" value="Update">-->

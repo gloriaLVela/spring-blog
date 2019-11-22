@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <th:block th:replace="fragments/header :: main-header"/>
@@ -31,11 +31,13 @@
                 <br>
 <!--                <label for="blog_description">Blog Description</label>-->
 <!--                <input id="blog_description" name="blog_description" type="text" class="form-control"/>-->
+                <div th:if="${post.getCategories().size() > 0}">
+                    <h3>Categories</h3>
+                    <th:block th:each="category : ${post.categories}">
+                        <div th:text="${category.description}"></div>
+                    </th:block>
+                </div>
 
-                <h3>Categories</h3>
-                <th:block th:each="category : ${post.categories}">
-                    <div th:text="${category.description}"></div>
-                </th:block>
                 <div id="buttons">
                     <form th:action="'/posts/' + ${post.id} + '/update'" method="get">
                         <input class="btn btn-warning btn-sm" type="submit" value="Update">

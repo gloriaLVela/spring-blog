@@ -30,7 +30,7 @@ public class FileUploadController {
             @RequestParam(name = "file") MultipartFile uploadedFile,
             Model model
     ) {
-        System.out.println("after save postback ");
+        //System.out.println("after save postback ");
         String filename = uploadedFile.getOriginalFilename();
         String filepath = Paths.get(uploadPath, filename).toString();
         File destinationFile = new File(filepath);
