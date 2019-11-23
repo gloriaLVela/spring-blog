@@ -31,6 +31,20 @@ public class PostController {
         this.categoryDao = categoryDao;
     }
 
+    private  void addCategoriesPost(  int[] categories, Post currentPost){
+        // Get the categories
+        Category category;
+        if (categories != null) {
+            List<Category> newCategories = new ArrayList<>();
+
+            for (int i = 0; i < categories.length; i++) {
+                category = categoryDao.getOne((long) categories[i]);
+                newCategories.add(category);
+            }
+            currentPost.setCategories(newCategories);
+        }
+        return;
+    }
     @GetMapping("/home")
     public String home() {
         return "home";
@@ -71,42 +85,42 @@ public class PostController {
     public String create(@ModelAttribute Post newPost, @RequestParam(value = "categories", required = false) int[] categories, Model vModel) {
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         newPost.setUser(loggedUser);
-        Category category;
-//      Get the categories
-        if (categories != null) {
-            List<Category> newCategories = new ArrayList<>();
-
-            for (int i = 0; i < categories.length; i++) {
-                System.out.println("categories[i] = " + categories[i]);
-                category = categoryDao.getOne((long) categories[i]);
-                newCategories.add(category);
-            }
-            newPost.setCategories(newCategories);
-        }
+        addCategoriesPost(  categories, newPost);
         postDao.save(newPost);
         return "redirect:/myPosts";
-        //return "redirect:/posts";
     }
 
     @GetMapping("/posts/{id}/historyOfPost")
     public String showHistoryPost(@PathVariable long id, Model vModel) {
         Post post = postDao.getOne(id);
-        System.out.println("post.getId() = " + post.getId());
         vModel.addAttribute("postHistory", post.getPostDetails().getHistoryOfPost());
         return "/posts/historyOfPost";
     }
 
     @GetMapping("/posts/{id}/update")
     public String updatePost(@PathVariable long id, Model viewModel) {
+        System.out.println("Post update");
+        int index = 0;
         viewModel.addAttribute("post", postDao.getOne(id));
         List<Category> listCategories = postDao.getOne(id).getCategories();
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (!listCategories.isEmpty()) {
-            viewModel.addAttribute("categories", postDao.getOne(id).getCategories());
+            List <Category> userCategories = postDao.getOne(id).getCategories();
+            List<Category> availableCategories = userDao.findByUsername(loggedUser.getUsername()).getCategories();
+            for(int i = 0; i< userCategories.size(); i++){
+                index = availableCategories.indexOf(userCategories.get(i));
+                if (index >= 0){
+                    availableCategories.remove(index);
+                }
+            }
+            viewModel.addAttribute("categories", userCategories);
+            viewModel.addAttribute("newCategories", availableCategories);
         } else {
+
             viewModel.addAttribute("categories", userDao.findByUsername(loggedUser.getUsername()).getCategories());
         }
         return "posts/update";
+
     }
 
     @PostMapping("/posts/{id}/update")
@@ -115,18 +129,9 @@ public class PostController {
         Category category;
         oldPost.setTitle(title);
         oldPost.setBody(body);
-        if (categories != null) {
-            List<Category> newCategories = new ArrayList<>();
-
-            for (int i = 0; i < categories.length; i++) {
-//                System.out.println("categories[i] = " + categories[i]);
-                category = categoryDao.getOne((long) categories[i]);
-                newCategories.add(category);
-            }
-            oldPost.setCategories(newCategories);
-        }
+        addCategoriesPost(  categories, oldPost);
         postDao.save(oldPost);
-        return "redirect:/posts/" + id;
+        return "redirect:/myPosts";
     }
 
 

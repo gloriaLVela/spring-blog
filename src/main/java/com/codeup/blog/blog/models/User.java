@@ -50,27 +50,16 @@ public class User {
         email = copy.email;
         username = copy.username;
         password = copy.password;
+        blog_description = copy.blog_description;
+        blog_image = copy.blog_image;
     }
 
-    public User(String username, String email, String password, String blog_description) {
+    public User(String username, String email, String password, String blog_description, String blog_image) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.blog_description = blog_description;
-    }
-
-    public User(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        //setPassword(password);
-    }
-
-    public User(long id, String username, String email, String password) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
+        this.blog_image = blog_image;
     }
 
     public long getId() {
@@ -103,6 +92,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getBlog_image() {
+        return blog_image;
+    }
+
+    public void setBlog_image(String blog_image) {
+        this.blog_image = blog_image;
     }
 
     public List<Post> getPosts() {

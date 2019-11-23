@@ -32,6 +32,11 @@ public class Category {
 
     }
 
+    public Category(String description, User user) {
+        this.description = description;
+        this.user = user;
+    }
+
     public Category(String description) {
         this.description = description;
     }
@@ -59,4 +64,5 @@ public class Category {
     public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
+
 }
