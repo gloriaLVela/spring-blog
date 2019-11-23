@@ -40,7 +40,6 @@ public class UserController {
 
     @PostMapping("/sign-up")
     public String saveUser(@ModelAttribute User newUser) {
-        //System.out.println("newUser.getPassword() = " + newUser.getPassword());
         String hash = passwordEncoder.encode(newUser.getPassword());
         newUser.setPassword(hash);
         userDao.save(newUser);

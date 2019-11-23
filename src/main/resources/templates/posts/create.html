@@ -12,13 +12,13 @@
 
 <div class="container">
     <h1 class="page_title">Create a new Post</h1>
-    <form class="form-group" th:action="@{/posts/create}" th:method="post" th:object="${post}" >
+    <form class="form-group" th:action="@{/posts/create}" th:method="post" th:object="${post}">
         <label for="title">Title</label>
 
-        <input id="title" th:field="*{title}"/>
+        <input id="title" th:field="*{title}" class="form-control"/>
         <br>
         <label for="body">Body</label>
-        <textarea id="body" th:field="*{body}"/>
+        <textarea id="body" th:field="*{body}" class="form-control"/>
         <br>
         <div>Categories</div>
         <div>
@@ -27,7 +27,7 @@
                 <label th:text="${category.description}"></label>
             </th:block>
         </div>
-        <input type="submit"/>
+        <input type="submit" class="btn btn-block btn-primary"/>
     </form>
 </div>
 

@@ -82,6 +82,7 @@ public class Post {
     }
 
     public List<Category> getCategories() {
+
         return categories;
     }
 

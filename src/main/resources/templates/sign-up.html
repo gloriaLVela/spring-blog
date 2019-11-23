@@ -7,25 +7,29 @@
 <body>
 <div th:replace="fragments/navbar :: main-navbar"></div>
 <div class="container">
-    <h1 class="page_title">Create an account</h1>
-    <form th:action="@{/sign-up}" method="POST" th:object="${user}" class="form-group">
-        <label for="username">User name</label>
-        <input id="username" th:field="*{username}"/>
-        <br>
-        <label for="details">Topic description</label>
-        <input id="details" th:field="*{blog_description}"/>
-        <br>
-        <label for="blog_image">Blog Image</label>
-        <input id="blog_image" th:field="*{blog_image}"/>
-        <br>
-        <label for="email">Email</label>
-        <input id="email" th:field="*{email}"/>
-        <br>
-        <label for="password">Password</label>
-        <input id="password" type="password" th:field="*{password}"/>
-        <br>
-        <input value="Sign me up!" type="submit"/>
-    </form>
+    <br>
+        <form th:action="@{/sign-up}" method="POST" th:object="${user}" class="form-group">
+
+            <h2 class="page_title" >Create an account</h2>
+                    <label for="username">User name</label>
+                    <input id="username" th:field="*{username}" class="form-control"/>
+                <br>
+                    <label for="details">Topic description</label>
+                    <input id="details" th:field="*{blog_description}" class="form-control"/>
+                <br>
+                    <label for="blog_image">Blog Image</label>
+                    <input id="blog_image" th:field="*{blog_image}" class="form-control"/>
+                <br>
+                    <label for="email">Email</label>
+                    <input id="email" th:field="*{email}" class="form-control"/>
+                <br>
+                    <label for="password">Password</label>
+                    <input id="password" type="password" th:field="*{password}" class="form-control"/>
+                <br>
+
+            <input value="Sign me up!" type="submit" class="btn btn-block btn-primary"/>
+        </form>
+
 </div>
 </body>
 </html>
