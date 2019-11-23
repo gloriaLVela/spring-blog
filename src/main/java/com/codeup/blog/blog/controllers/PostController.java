@@ -75,8 +75,6 @@ public class PostController {
     public String showCreatePost(Model vModel) {
         vModel.addAttribute("post", new Post());
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //loggedUser.getCategories();
-        //vModel.addAttribute("categories", categoryDao.findAll());
         vModel.addAttribute("categories", userDao.findByUsername(loggedUser.getUsername()).getCategories());
         return "/posts/create";
     }
