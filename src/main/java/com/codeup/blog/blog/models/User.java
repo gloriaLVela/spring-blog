@@ -1,6 +1,8 @@
 package com.codeup.blog.blog.models;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -26,8 +28,8 @@ public class User {
     @Column(nullable = false, columnDefinition =  "Varchar(255)")
     private String blog_image;
 
-//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-//    private BlogDetails blogDetails;
+    @Column(name="timestamp", columnDefinition="DATETIME DEFAULT CURRENT_TIMESTAMP")
+    private Date time_stamp;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Post> posts;
@@ -118,13 +120,22 @@ public class User {
     public void setBlog_description(String blog_description) {
         this.blog_description = blog_description;
     }
-//    public BlogDetails getBlogDetails() {
-//        return blogDetails;
-//    }
-//
-//    public void setBlogDetails(BlogDetails blogDetails) {
-//        this.blogDetails = blogDetails;
-//    }
+
+    public Date getTime_stamp() {
+        return time_stamp;
+    }
+
+    public String getTime_stamp_String() {
+        String pattern = "MMMM dd,yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        String date = simpleDateFormat.format(time_stamp);
+        return date;
+    }
+
+    public void setTime_stamp(Date time_stamp) {
+        this.time_stamp = time_stamp;
+    }
 
     @Override
     public String toString() {
@@ -133,7 +144,11 @@ public class User {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", blog_description='" + blog_description + '\'' +
+                ", blog_image='" + blog_image + '\'' +
+                ", time_stamp=" + time_stamp +
                 ", posts=" + posts +
+                ", categories=" + categories +
                 '}';
     }
 }

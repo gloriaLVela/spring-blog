@@ -16,12 +16,12 @@
                     <h2 class="post-title" th:text="${post.title}"></h2>
                 </a>
                 <p class="card-body" th:text="${post.body.substring(0, post.body.indexOf('.')+1)}"></p>
-                <div th:if="${post.getCategories().size() > 0}">
-                    <h3>Categories</h3>
+                <p th:if="${post.getCategories().size() > 0}">
+                    <h4>Categories</h4>
                     <th:block th:each="category : ${post.categories}">
                         <div th:text="${category.getDescription()}"></div>
                     </th:block>
-                </div>
+                </p>
             </div>
         </div>
     </div>

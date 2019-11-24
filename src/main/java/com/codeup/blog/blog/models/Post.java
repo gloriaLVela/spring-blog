@@ -1,6 +1,8 @@
 package com.codeup.blog.blog.models;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -15,6 +17,9 @@ public class Post {
 
     @Column(columnDefinition = "TEXT")
     private String body;
+
+    @Column(name="timestamp", columnDefinition="DATETIME DEFAULT CURRENT_TIMESTAMP")
+    private Date time_stamp;
 
     @OneToOne(mappedBy = "post")
     private PostDetails postDetails;
@@ -75,6 +80,22 @@ public class Post {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Date getTime_stamp() {
+        return time_stamp;
+    }
+
+    public void setTime_stamp(Date time_stamp) {
+        this.time_stamp = time_stamp;
+    }
+
+    public String getTime_stamp_String() {
+        String pattern = "MMMM dd,yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        String date = simpleDateFormat.format(time_stamp);
+        return date;
     }
 
     public void setPostDetails(PostDetails postDetails) {

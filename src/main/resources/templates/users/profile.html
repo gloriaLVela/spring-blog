@@ -9,7 +9,9 @@
 
 <div class="container">
     <h1 class="page_title">Update your posts</h1>
-    <header class="masthead" style="background-image: url('img/post-bg.jpg')">
+    <header class="masthead" th:style="'background: url(' + |cid:${blog_img}| + ') no-repeat;'">
+<!--        <img th:src="${blog_img}">-->
+        <img th:src="@{{image}(image=${blog_img})}">
         <div class="overlay"></div>
         <div class="container">
             <div class="row">

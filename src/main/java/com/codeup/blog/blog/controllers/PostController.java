@@ -31,7 +31,7 @@ public class PostController {
         this.categoryDao = categoryDao;
     }
 
-    private  void addCategoriesPost(  int[] categories, Post currentPost){
+    private void addCategoriesPost(int[] categories, Post currentPost) {
         // Get the categories
         Category category;
         if (categories != null) {
@@ -45,9 +45,21 @@ public class PostController {
         }
         return;
     }
+
     @GetMapping("/home")
-    public String home() {
+    public String home(Model viewModel) {
+        List<User> users = userDao.findAll();
+        List<Post> posts = postDao.findAll();
+        Post currentPost = new Post();
+
+
+        for (User currentUser : users) {
+           posts.add( userDao.findByUsername(currentUser.getUsername()).getPosts().get(0));
+        }
+
+        viewModel.addAttribute("users", users);
         return "home";
+
     }
 
     @GetMapping("/posts")
@@ -83,7 +95,7 @@ public class PostController {
     public String create(@ModelAttribute Post newPost, @RequestParam(value = "categories", required = false) int[] categories, Model vModel) {
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         newPost.setUser(loggedUser);
-        addCategoriesPost(  categories, newPost);
+        addCategoriesPost(categories, newPost);
         postDao.save(newPost);
         return "redirect:/myPosts";
     }
@@ -97,17 +109,17 @@ public class PostController {
 
     @GetMapping("/posts/{id}/update")
     public String updatePost(@PathVariable long id, Model viewModel) {
-        System.out.println("Post update");
+//        System.out.println("Post update");
         int index = 0;
         viewModel.addAttribute("post", postDao.getOne(id));
         List<Category> listCategories = postDao.getOne(id).getCategories();
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (!listCategories.isEmpty()) {
-            List <Category> userCategories = postDao.getOne(id).getCategories();
+            List<Category> userCategories = postDao.getOne(id).getCategories();
             List<Category> availableCategories = userDao.findByUsername(loggedUser.getUsername()).getCategories();
-            for(int i = 0; i< userCategories.size(); i++){
+            for (int i = 0; i < userCategories.size(); i++) {
                 index = availableCategories.indexOf(userCategories.get(i));
-                if (index >= 0){
+                if (index >= 0) {
                     availableCategories.remove(index);
                 }
             }
@@ -127,7 +139,7 @@ public class PostController {
         Category category;
         oldPost.setTitle(title);
         oldPost.setBody(body);
-        addCategoriesPost(  categories, oldPost);
+        addCategoriesPost(categories, oldPost);
         postDao.save(oldPost);
         return "redirect:/myPosts";
     }
