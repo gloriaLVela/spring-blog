@@ -5,21 +5,21 @@
     <div class="container">
         <div class="navbar-collapse collapse show" id="navbarResponsive" style="">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
+                <li ><a class="nav-link" href="/home">Home</a></li>
 
-                <li sec:authorize="isAuthenticated()"><a href="/posts/create">Create Post</a></li>
-                <li sec:authorize="isAuthenticated()"><a href="/myPosts">View my Posts</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/posts/create">Create Post</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/myPosts">View my Posts</a></li>
 
-                <li><a href="/posts">Featured Posts</a></li>
-                <li sec:authorize="isAuthenticated()"><a href="/category/maintain">Categories</a></li>
-                <li sec:authorize="isAuthenticated()"><a href="/category/add">Create a new category</a></li>
-                <li sec:authorize="isAuthenticated()"><a href="/fileupload">Upload file</a></li>
+                <li><a class="nav-link" href="/posts">Featured Posts</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/category/maintain">Categories</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/category/add">Create a new category</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/fileupload">Blog Image</a></li>
 
-                <li sec:authorize="isAnonymous()"><a href="/register">Register</a></li>
-                <li sec:authorize="isAnonymous()"><a href="/login">Login</a></li>
+                <li sec:authorize="isAnonymous()"><a class="nav-link" href="/register">Register</a></li>
+                <li sec:authorize="isAnonymous()"><a class="nav-link" href="/login">Login</a></li>
                 <li sec:authorize="isAuthenticated()">
-                    <form th:action="@{/logout}" th:method="post">
-                        <button class="btn-link btn" style="margin-top: 8px">Logout</button>
+                    <form class="nav-link" th:action="@{/logout}" th:method="post">
+                        <button style="background-color: white; border: 0px; margin-top: -.75em;" class="nav-link" >Logout</button>
                     </form>
                 </li>
             </ul>
