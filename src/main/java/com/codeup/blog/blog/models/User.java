@@ -25,7 +25,7 @@ public class User {
     @Column(nullable = false, columnDefinition =  "Varchar(255)")
     private String blog_description;
 
-    @Column(nullable = false, columnDefinition =  "Varchar(255)")
+    @Column(columnDefinition =  "Varchar(255)")
     private String blog_image;
 
     @Column(name="timestamp", columnDefinition="DATETIME DEFAULT CURRENT_TIMESTAMP")
