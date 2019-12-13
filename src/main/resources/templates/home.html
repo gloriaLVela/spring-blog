@@ -9,14 +9,26 @@
 <div th:replace="fragments/navbar :: main-navbar"></div>
 
 <div class="container">
-    <h1 class="page_title">Home page</h1>
-    <h1 class="page_title">Current Blogs</h1>
+    <div class="page-title">List of current blogs</div>
+
     <div id="postList">
-        <div th:each="user : ${users}">
-            <div> The blog
+        <div th:each="user : ${users}" >
+            <div class="section-title"> The blog
                 "<span th:text="${user.getBlog_description()}"></span>"
-                started on
-                <span th:text="${user.getTime_stamp_String()}"></span></div>
+               <span style="font-style: italic">started on
+                <span th:text="${user.getTime_stamp_String()}"></span></span> </div>
+            <div th:each="post : ${user.getPosts().get(0)}">
+                <a th:href="@{'posts/' + ${post.id}}">
+                    <h2 class="post-title" th:text="${post.title}"></h2>
+                </a>
+                <p class="card-body" th:text="${post.body.substring(0, post.body.indexOf('.')+1)}"></p>
+                <p th:if="${post.getCategories().size() > 0}">
+                <h4>Categories</h4>
+                <th:block th:each="category : ${post.categories}">
+                    <div th:text="${category.getDescription()}"></div>
+                </th:block>
+                </p>
+            </div>
         </div>
         <br>
     </div>

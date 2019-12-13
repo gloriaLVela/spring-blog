@@ -65,10 +65,14 @@ fieldset{
     color: #e88e01;
 }
 
-.page_title {
+.page-title {
+    font-size: 2em;
     margin-top: 1em;
 }
-
+.section-title {
+    font-size: 1.5em;
+    margin-top: 1em;
+}
 .nav-link {
 
 }
