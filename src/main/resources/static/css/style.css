@@ -1,18 +1,28 @@
+/*Tag type*/
+
 body {
     font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    /*background-color: #eef2db;*/
-    /*color: #A0522D;*/
-    /*font-family: 'Source Code Pro', monospace;*/
 }
 
 h4 {
     margin-top: 1em;
 }
 
-/*h3{*/
-/*    color:#dadfbc;*/
-/*}*/
-/*h3, h4, h5, h6*/
+
+li {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-right: 2em;
+}
+
+nav {
+    font-size: 12px;
+    font-weight: bolder;
+}
+
+fieldset{
+    border: 1px solid darkgray;
+}
+
 ul {
     display: flex;
     flex-direction: row;
@@ -21,20 +31,7 @@ ul {
 
 }
 
-nav {
-    font-size: 12px;
-    font-weight: bolder;
-}
-
-li {
-    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    margin-right: 2em;
-}
-
-fieldset{
-    border: 1px solid darkgray;
-}
-
+/*Class type*/
 .btn-delete {
     width: 5em;
 }
@@ -65,14 +62,20 @@ fieldset{
     color: #e88e01;
 }
 
-.page_title {
+.page-title {
+    font-size: 2em;
     margin-top: 1em;
 }
 
 .nav-link {
 
 }
+.section-title {
+    font-size: 1.5em;
+    margin-top: 1em;
+}
 
+/*Id*/
 #buttons {
     display: flex;
     flex-direction: row;

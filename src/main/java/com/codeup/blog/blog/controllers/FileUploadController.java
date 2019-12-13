@@ -50,7 +50,8 @@ public class FileUploadController {
             uploadedFile.transferTo(destinationFile);
             User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User currentUser = userDao.getOne(loggedUser.getId());
-            currentUser.setBlog_image(filepath);
+            currentUser.setBlog_image(uploadedFile.getOriginalFilename());
+            System.out.println("uploadedFile.getOriginalFilename() = " + uploadedFile.getOriginalFilename());
             userDao.save(currentUser);
             return  "redirect:/myPosts";
             //model.addAttribute("message", "File successfully uploaded!");

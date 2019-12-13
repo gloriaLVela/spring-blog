@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Display a post</title>
     <th:block th:replace="fragments/header :: main-header"/>
 </head>
 <body>
+<div id="mainDiv" class="container">
+    <div th:replace="fragments/navbar :: main-navbar"></div>
 
-<div th:replace="fragments/navbar :: main-navbar"></div>
-
-<div>
-    <h1 class="page_title" th:text="${post.title}"></h1>
-    <p th:text="${post.body}"/>
-    <h3>Categories</h3>
-    <th:block th:each="category : ${categories}">
-        <div th:text="${category.description}"></div>
-    </th:block>
-    <input type="hidden" name="id" th:value="${post.id}">
+    <div>
+        <h1 class="page-title" th:text="${post.title}"></h1>
+        <img src="/static/img/download.jpeg" th:src="@{/img/download.jpeg}"/>
+        <p th:text="${post.body}"/>
+        <div th:if="${post.getCategories().size() > 0}">
+            <div class="section-title">Categories</div>
+            <th:block th:each="category : ${categories}">
+                <div th:text="${category.description}"></div>
+            </th:block>
+        </div>
+        <input type="hidden" name="id" th:value="${post.id}">
+    </div>
 </div>
-
 </body>
 </html>
