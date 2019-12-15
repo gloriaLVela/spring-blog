@@ -32,8 +32,6 @@ public class FileUploadController {
 
     @GetMapping("/fileupload")
     public String showUploadFileForm() {
-
-        //System.out.println("upload");
         return "fileupload";
     }
 
