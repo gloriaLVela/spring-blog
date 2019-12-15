@@ -18,6 +18,9 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String body;
 
+    @Column (columnDefinition = "VARCHAR(255)")
+    private String picture_url;
+
     @Column(name="timestamp", columnDefinition="DATETIME DEFAULT CURRENT_TIMESTAMP")
     private Date time_stamp;
 
@@ -109,6 +112,14 @@ public class Post {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    public String getPicture_url() {
+        return picture_url;
+    }
+
+    public void setPicture_url(String picture_url) {
+        this.picture_url = picture_url;
     }
 }
 

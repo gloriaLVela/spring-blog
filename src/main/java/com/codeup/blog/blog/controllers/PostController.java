@@ -6,16 +6,26 @@ import com.codeup.blog.blog.repositories.CategoryRepository;
 import com.codeup.blog.blog.repositories.PostRepository;
 import com.codeup.blog.blog.models.Post;
 import com.codeup.blog.blog.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Null;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
-
+//import java.io.IOException;
+//import java.nio.file.Files;
+//import java.nio.file.Paths;
+//import java.nio.file.StandardCopyOption;
 
 @Controller
 public class PostController {
@@ -24,6 +34,8 @@ public class PostController {
     private final UserRepository userDao;
     private final CategoryRepository categoryDao;
 
+    @Value("${file-upload-path}")
+    private String uploadPath;
 
     public PostController(PostRepository postDao, UserRepository userDao, CategoryRepository categoryDao) {
         this.postDao = postDao;
@@ -134,7 +146,11 @@ public class PostController {
     }
 
     @PostMapping("/posts/{id}/update")
-    public String update(@PathVariable long id, @RequestParam String title, @RequestParam String body, @RequestParam(value = "categories", required = false) int[] categories) {
+    public String update(@PathVariable long id,
+                         @RequestParam String title,
+                         @RequestParam String body,
+                         @RequestParam(value = "categories",
+                                 required = false) int[] categories) {
         Post oldPost = postDao.getOne(id);
         Category category;
         oldPost.setTitle(title);
@@ -144,6 +160,35 @@ public class PostController {
         return "redirect:/myPosts";
     }
 
+//    @PostMapping("/posts/{id}/pictureUpload")
+//    public String saveFile(
+//            @PathVariable long id,
+//            @RequestParam(name = "file") MultipartFile uploadedPicture,
+//            Model model)
+//    {
+//        Post currentPost;
+//        String filename = uploadedPicture.getOriginalFilename();
+//        var is = uploadedPicture.getInputStream();
+//
+//            Files.copy(is, Paths.get(path + fileName),
+//            StandardCopyOption.REPLACE_EXISTING);
+////        String filepath = Paths.get(uploadPath, filename).toString();
+//        File destinationFile = new File(filepath);
+//        try {
+//            System.out.println("destinationFile = " + destinationFile);
+//            uploadedPicture.transferTo(destinationFile);
+//            currentPost = postDao.getOne(id);
+//            currentPost.setPicture_url(uploadedPicture.getOriginalFilename());
+//            System.out.println("uploadedPicture.getOriginalFilename() = " + uploadedPicture.getOriginalFilename());
+//            postDao.save(currentPost);
+//            return  "redirect:/posts/" + id + "/update";
+//        } catch (IOException e) {
+//
+//            e.printStackTrace();
+//            model.addAttribute("message", "Oh no, Oops! Something went wrong! " + e);
+//        }
+//        return "redirect:/posts/" + id + "/update";
+//    }
 
     @PostMapping("/posts/{id}/delete")
     public String delete(@PathVariable long id) {
