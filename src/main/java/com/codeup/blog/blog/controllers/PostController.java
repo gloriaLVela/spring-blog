@@ -1,12 +1,15 @@
 package com.codeup.blog.blog.controllers;
 
 import com.codeup.blog.blog.models.Category;
+import com.codeup.blog.blog.models.Photo;
 import com.codeup.blog.blog.models.User;
 import com.codeup.blog.blog.repositories.CategoryRepository;
+import com.codeup.blog.blog.repositories.PhotoRepository;
 import com.codeup.blog.blog.repositories.PostRepository;
 import com.codeup.blog.blog.models.Post;
 import com.codeup.blog.blog.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,14 +36,23 @@ public class PostController {
     private final PostRepository postDao;
     private final UserRepository userDao;
     private final CategoryRepository categoryDao;
+    private final PhotoRepository photoDao;
 
     @Value("${file-upload-path}")
     private String uploadPath;
 
-    public PostController(PostRepository postDao, UserRepository userDao, CategoryRepository categoryDao) {
+//    @Value("${file-upload-path}")
+//    private String uploadPath;
+
+
+    public PostController(PostRepository postDao,
+                          UserRepository userDao,
+                          CategoryRepository categoryDao,
+                          PhotoRepository photoDao) {
         this.postDao = postDao;
         this.userDao = userDao;
         this.categoryDao = categoryDao;
+        this.photoDao = photoDao;
     }
 
     private void addCategoriesPost(int[] categories, Post currentPost) {
@@ -122,7 +134,8 @@ public class PostController {
     @GetMapping("/posts/{id}/update")
     public String updatePost(@PathVariable long id, Model viewModel) {
 //        System.out.println("Post update");
-        int index = 0;
+        int index;
+//        viewModel.addAttribute("filestackKey", filestackKey);
         viewModel.addAttribute("post", postDao.getOne(id));
         List<Category> listCategories = postDao.getOne(id).getCategories();
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -145,6 +158,19 @@ public class PostController {
 
     }
 
+    @PostMapping("add-photo/{id}")
+    public String addPhoto(@PathVariable long id, @RequestParam(name = "picURL", required = false) String picURL){
+        Post post = postDao.getOne(id);
+        Photo newPic = new Photo(picURL);
+        photoDao.save(newPic);
+
+        post.setPhoto(newPic);
+
+        postDao.save(post);
+
+        return "redirect:/posts/" + post.getId() + "/update";
+
+    }
     @PostMapping("/posts/{id}/update")
     public String update(@PathVariable long id,
                          @RequestParam String title,

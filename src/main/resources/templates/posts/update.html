@@ -17,26 +17,34 @@
             </label>
             <br>
             <input th:field="*{title}" class="form-control"/>
-            <div class="field" id="photo">
-                <div>
-                    <input type="hidden" id="filestackAPI" name="filestackAPI" th:value="${filestackAPI}"/>
-                    <div class="file">
-                        <label class="file-label">
-                            <input id="picker" class="file-input" type="file" name="resume"/>
-                            <input type="hidden" id="fileupload" name="file"/>
-                            <span class="file-cta">
-                <span class="file-icon">
-                  <i class="fas fa-camera-retro"></i>
-                </span>
-                <span class="file-label">
-                  Upload a Photo
-                </span>
-                </span>
-                        </label>
+            <div class="pic-div">
+<!--                <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.id == user.id}">-->
+                    <div><input class="waves-effect  btn-color btn" type="BUTTON" value="Upload Picture"
+                                id="pickWatermark" onclick="pickMark()">
                     </div>
-                    <div id="nameBox"></div>
+<!--                </th:block>-->
+                <div class="center-align">
+<!--                    <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.id == user.id}">-->
+                        <form th:action="@{'/add-photo/' + ${post.id}}" th:method="post">
+                            <input hidden th:name="picURL" id="photoURL">
+                            <button class="waves-effect btn-color btn pic-btn" id="confirm-picture">Save Picture</button>
+                        </form>
+<!--                    </th:block>-->
+                </div>
+<!--                <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.id == user.id}">-->
+                    <div class="center-align"><a class="waves-effect  btn edit-btn" th:href="@{'/users/user-details-edit'}"><i
+                            class="material-icons left">account_box</i>Edit Profile</a>
+                    </div>
+<!--                </th:block>-->
+                <div>
+<!--                    <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.id != user.id}">-->
+                        <a id="btn-getInTouch" class="waves-effect  btn-color btn"><i class="material-icons left">account_box</i>Message
+                            Me</a>
+<!--                    </th:block>-->
 
-                    <th:block th:replace="fragments/filestack"/>
+
+
+
                 </div>
             </div>
             <div>
@@ -58,6 +66,38 @@
         </div>
     </form>
 </section>
-
+<!--FileStack Photo Stuff-->
+<script>
+    const client = filestack.init('ABY8V4s1ETM2L3jaW4V5ez');
+    var watermarkHandle = '';
+    //Function pickMark() will not receive the result object back
+    function pickMark() {
+        console.log("Picking Watermark");
+        client.pick({
+            accept: 'image/*',
+            maxFiles: 1,
+        }).then(function (result) {//Taking the results object in as 'result'
+            //Putting the result in a string, and printing it to the console
+            console.log('result should exist by now');
+            console.log('result is ' + result);
+            console.log(JSON.stringify(result));
+            //Sets the watermark handle to the handle of the first file in the result
+            watermarkHandle = result.filesUploaded[0].url;
+            //Logs the new watermark handle in the console
+            console.log(watermarkHandle);
+            return watermarkHandle;
+        }).then(function (result) {
+            addURL(result);
+        });
+    }
+    function addURL(str) {
+        $('#photoURL').val(str);
+    }
+    $('#confirm-picture').on('click', function () {
+        // $('#photoURL').val(watermarkHandle);
+        console.log($('#photoURL').val());
+        console.log(watermarkHandle);
+    });
+</script>
 </body>
 </html>
