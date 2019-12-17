@@ -18,7 +18,7 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    @Column (columnDefinition = "VARCHAR(255)")
+    @Column(columnDefinition = "VARCHAR(2000)")
     private String picture_url;
 
     @Column(name="timestamp", columnDefinition="DATETIME DEFAULT CURRENT_TIMESTAMP")

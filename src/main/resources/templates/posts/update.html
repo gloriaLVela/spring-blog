@@ -10,54 +10,87 @@
 <div th:replace="fragments/navbar :: main-navbar"></div>
 <section class="container">
     <h1 class="page_title">Update Post</h1>
-    <form th:action="@{'/posts/' + ${post.id} + '/update'}" th:method="post" th:object="${post}" class="form-group">
-        <div class="container">
-            <label>
-                Title:
-            </label>
-            <br>
-            <input th:field="*{title}" class="form-control"/>
-            <div class="field" id="photo">
-                <div>
-                    <input type="hidden" id="filestackAPI" name="filestackAPI" th:value="${filestackAPI}"/>
-                    <div class="file">
-                        <label class="file-label">
-                            <input id="picker" class="file-input" type="file" name="resume"/>
-                            <input type="hidden" id="fileupload" name="file"/>
-                            <span class="file-cta">
-                <span class="file-icon">
-                  <i class="fas fa-camera-retro"></i>
-                </span>
-                <span class="file-label">
-                  Upload a Photo
-                </span>
-                </span>
-                        </label>
-                    </div>
-                    <div id="nameBox"></div>
+    <div class="container">
+        <div class="card">
+            <div style="width: 100%;">
+                <img src="${post.getPicture_url()}" th:src="${post.getPicture_url()}" id="imgPicture"/>
+            </div>
 
-                    <th:block th:replace="fragments/filestack"/>
-                </div>
+            <div class="">
+                <form th:action="@{'/add-photo/' + ${post.id}}" th:method="post">
+                    <span>  <input hidden th:name="photoURL" id="photoURL" value=""></span>
+                    <span class="pull-left"> <input class="btn" type="BUTTON" value="Upload Picture"
+                                                    id="pickPhoto"></span>
+                    <span class="pull-right"> <button class="btn" id="confirm-picture">Save Picture</button></span>
+                </form>
             </div>
-            <div>
-                Body:
-            </div>
-            <textarea th:field="*{body}" class="form-control"/>
-            <div>
-                <th:block th:each="category : ${categories}">
-                    <input type="checkbox" th:field="*{categories}" name="categories" th:value="${category.id}"/>
-                    <label th:text="${category.description}"></label>
-                </th:block>
-                <th:block th:each="category : ${newCategories}">
-                    <input type="checkbox" th:field="*{categories}" name="newCategories" th:value="${category.id}"/>
-                    <label th:text="${category.description}"></label>
-                </th:block>
-            </div>
-            <input type="hidden" th:field="*{id}">
-            <input class="btn btn-warning" type="submit" value="Update">
         </div>
-    </form>
+    </div>
+    <div class="card">
+        <form th:action="@{'/posts/' + ${post.id} + '/update'}" th:method="post" th:object="${post}" class="form-group">
+            <div class="container">
+                <label>
+                    Title:
+                </label>
+                <br>
+                <input th:field="*{title}" class="form-control"/>
+                <div>
+                    Body:
+                </div>
+                <textarea th:field="*{body}" class="form-control"/>
+                <div>
+                    <th:block th:each="category : ${categories}">
+                        <input type="checkbox" th:field="*{categories}" name="categories" th:value="${category.id}"/>
+                        <label th:text="${category.description}"></label>
+                    </th:block>
+                    <th:block th:each="category : ${newCategories}">
+                        <input type="checkbox" th:field="*{categories}" name="newCategories" th:value="${category.id}"/>
+                        <label th:text="${category.description}"></label>
+                    </th:block>
+                </div>
+                <input type="hidden" th:field="*{id}" id="postId">
+                <input class="btn btn-warning" type="submit" value="Update">
+            </div>
+        </form>
+    </div>
 </section>
+<!--FileStack Photo -->
+<script>
+    const client = filestack.init('ABY8V4s1ETM2L3jaW4V5ez');
+    var watermarkHandle = '';
 
+    const getPostId = () => {
+        return new Promise((resolve) => {
+            resolve({
+                postId: $('postId').innerText
+            })
+        });
+    };
+
+    $('#pickPhoto').on('click', function () {
+        // user id taken from external source ie: your database, Facebook etc.
+        getPostId().then((response) => {
+            const userId = response.userId;
+            const apikey = 'ABY8V4s1ETM2L3jaW4V5ez';
+            const client = filestack.init(apikey);
+            const options = {
+                uploadInBackground: false,
+                onFileUploadFinished: (response) => {
+                    var objJSON = (response);
+                    //Sets the watermark handle to the handle of the first file in the result
+                    watermarkHandle = objJSON['url'];
+                    document.getElementById("photoURL").value = watermarkHandle;
+                    document.getElementById("imgPicture").src = watermarkHandle;
+                    // console.log(document.getElementById("photoURL").value);
+                    return watermarkHandle;
+
+                }
+            };
+            const picker = client.picker(options);
+            picker.open();
+        });
+    });
+
+</script>
 </body>
 </html>
