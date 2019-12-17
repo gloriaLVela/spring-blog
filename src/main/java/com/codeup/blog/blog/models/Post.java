@@ -18,8 +18,8 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    @OneToOne
-    private Photo photo;
+    @Column(columnDefinition = "VARCHAR(2000)")
+    private String picture_url;
 
     @Column(name="timestamp", columnDefinition="DATETIME DEFAULT CURRENT_TIMESTAMP")
     private Date time_stamp;
@@ -114,12 +114,12 @@ public class Post {
         this.categories = categories;
     }
 
-    public Photo getPhoto() {
-        return photo;
+    public String getPicture_url() {
+        return picture_url;
     }
 
-    public void setPhoto(Photo photo) {
-        this.photo = photo;
+    public void setPicture_url(String picture_url) {
+        this.picture_url = picture_url;
     }
 }
 

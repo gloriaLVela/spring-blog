@@ -36,23 +36,18 @@ public class PostController {
     private final PostRepository postDao;
     private final UserRepository userDao;
     private final CategoryRepository categoryDao;
-    private final PhotoRepository photoDao;
 
     @Value("${file-upload-path}")
     private String uploadPath;
 
-//    @Value("${file-upload-path}")
-//    private String uploadPath;
 
 
     public PostController(PostRepository postDao,
                           UserRepository userDao,
-                          CategoryRepository categoryDao,
-                          PhotoRepository photoDao) {
+                          CategoryRepository categoryDao) {
         this.postDao = postDao;
         this.userDao = userDao;
         this.categoryDao = categoryDao;
-        this.photoDao = photoDao;
     }
 
     private void addCategoriesPost(int[] categories, Post currentPost) {
@@ -135,7 +130,7 @@ public class PostController {
     public String updatePost(@PathVariable long id, Model viewModel) {
 //        System.out.println("Post update");
         int index;
-//        viewModel.addAttribute("filestackKey", filestackKey);
+        viewModel.addAttribute("picURL", postDao.getOne(id).getPicture_url());
         viewModel.addAttribute("post", postDao.getOne(id));
         List<Category> listCategories = postDao.getOne(id).getCategories();
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -159,15 +154,13 @@ public class PostController {
     }
 
     @PostMapping("add-photo/{id}")
-    public String addPhoto(@PathVariable long id, @RequestParam(name = "picURL", required = false) String picURL){
+    public String addPhoto(@PathVariable long id,
+                           @RequestParam(name = "photoURL",
+            required = false) String photoURL){
         Post post = postDao.getOne(id);
-        Photo newPic = new Photo(picURL);
-        photoDao.save(newPic);
-
-        post.setPhoto(newPic);
-
+        System.out.println("photoURL = " + photoURL);
+        post.setPicture_url(photoURL);
         postDao.save(post);
-
         return "redirect:/posts/" + post.getId() + "/update";
 
     }
