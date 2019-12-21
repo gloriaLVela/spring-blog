@@ -1,34 +1,18 @@
 package com.codeup.blog.blog.controllers;
 
 import com.codeup.blog.blog.models.Category;
-import com.codeup.blog.blog.models.Photo;
 import com.codeup.blog.blog.models.User;
 import com.codeup.blog.blog.repositories.CategoryRepository;
-import com.codeup.blog.blog.repositories.PhotoRepository;
 import com.codeup.blog.blog.repositories.PostRepository;
 import com.codeup.blog.blog.models.Post;
 import com.codeup.blog.blog.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.constraints.Null;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
-//import java.io.IOException;
-//import java.nio.file.Files;
-//import java.nio.file.Paths;
-//import java.nio.file.StandardCopyOption;
 
 @Controller
 public class PostController {
@@ -39,8 +23,6 @@ public class PostController {
 
     @Value("${file-upload-path}")
     private String uploadPath;
-
-
 
     public PostController(PostRepository postDao,
                           UserRepository userDao,
@@ -67,23 +49,58 @@ public class PostController {
 
     @GetMapping("/home")
     public String home(Model viewModel) {
-        List<User> users = userDao.findAll();
-        List<Post> posts = postDao.findAll();
-        Post currentPost = new Post();
-
-
-        for (User currentUser : users) {
-           posts.add( userDao.findByUsername(currentUser.getUsername()).getPosts().get(0));
-        }
-
-        viewModel.addAttribute("users", users);
+//        List<User> users = userDao.findAll();
+//        List<Post> posts = postDao.findAll();
+//        Post currentPost = new Post();
+//
+//
+//        for (User currentUser : users) {
+//           posts.add( userDao.findByUsername(currentUser.getUsername()).getPosts().get(0));
+//        }
+//
+//        viewModel.addAttribute("users", users);
         return "home";
 
     }
 
+    @GetMapping("/featured")
+    public String featuredPost(Model viewModel) {
+        List<User> users = userDao.findAll();
+        List<Post> posts = postDao.findAll();
+//        Post currentPost = new Post();
+        for (User currentUser : users) {
+            posts.add( userDao.findByUsername(currentUser.getUsername()).getPosts().get(0));
+        }
+
+        viewModel.addAttribute("users", users);
+        return "posts/featured";
+    }
+
+    @GetMapping("/showBlog/{id}")
+    public String listPosts(@PathVariable long id, Model viewModel) {
+        User selectedBlog = userDao.getOne(id);
+        List<Post> posts = selectedBlog.getPosts();
+        for (Post currentPost : posts) {
+            currentPost.getCategories();
+        }
+        viewModel.addAttribute("posts", posts);
+        return "posts/index";
+    }
+
+
+
     @GetMapping("/posts")
     public String index(Model viewModel) {
-
+//        List<User> users = userDao.findAll();
+//        List<Post> posts = postDao.findAll();
+//        Post currentPost = new Post();
+//
+//
+//        for (User currentUser : users) {
+//            posts.add( userDao.findByUsername(currentUser.getUsername()).getPosts().get(0));
+//        }
+//
+//        viewModel.addAttribute("users", users);
         List<Post> posts = postDao.findAll();
         for (Post currentPost : posts) {
             currentPost.getCategories();
@@ -93,14 +110,37 @@ public class PostController {
         return "posts/index";
     }
 
-
     @GetMapping("/posts/{id}")
     public String show(@PathVariable long id, Model viewModel) {
+        System.out.println("id = " + id);
         viewModel.addAttribute("post", postDao.getOne(id));
         viewModel.addAttribute("categories", postDao.getOne(id).getCategories());
         return "posts/show";
     }
+    @GetMapping("/changeImage")
+    public String changeBlogPicture(Model vModel) {
+        User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        vModel.addAttribute("blogImage", loggedUser.getBlog_image());
+        vModel.addAttribute("userId", loggedUser.getId());
+        return "/posts/change-blog-image";
+    }
 
+    @PostMapping("/changeBlogImage/{id}")
+    public String updateBlogPicture(@PathVariable long id,
+                                    @RequestParam(name = "photoURL",
+                                            required = false) String photoURL) {
+        User loggedUser = userDao.getOne(id);
+        loggedUser.setBlog_image(photoURL);
+        userDao.save(loggedUser);
+        return "/changeImage";
+    }
+//    @PathVariable long id,
+//    @RequestParam(name = "photoURL",
+//    required = false) String photoURL){
+//        Post post = postDao.getOne(id);
+////        System.out.println("photoURL = " + photoURL);
+//        post.setPicture_url(photoURL);
+//        postDao.save(post);
 
     @GetMapping("/posts/create")
     public String showCreatePost(Model vModel) {
@@ -158,7 +198,7 @@ public class PostController {
                            @RequestParam(name = "photoURL",
             required = false) String photoURL){
         Post post = postDao.getOne(id);
-        System.out.println("photoURL = " + photoURL);
+//        System.out.println("photoURL = " + photoURL);
         post.setPicture_url(photoURL);
         postDao.save(post);
         return "redirect:/posts/" + post.getId() + "/update";
