@@ -18,11 +18,11 @@
                 <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/posts/create">Create Post</a></li>
                 <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/myPosts">View my Posts</a></li>
 
-                <li><a class="nav-link" href="/posts">Featured Posts</a></li>
+                <li><a class="nav-link" href="/featured">Featured Posts</a></li>
                 <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/category/maintain">Categories</a></li>
                 <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/category/add">Create a new category</a>
                 </li>
-                <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/fileupload">Blog Image</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/changeImage">Blog Image</a></li>
 
                 <li sec:authorize="isAnonymous()"><a class="nav-link" href="/register">Register</a></li>
                 <li sec:authorize="isAnonymous()"><a class="nav-link" href="/login">Login</a></li>
