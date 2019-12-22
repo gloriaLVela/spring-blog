@@ -83,6 +83,7 @@ public class PostController {
         for (Post currentPost : posts) {
             currentPost.getCategories();
         }
+        viewModel.addAttribute("user", selectedBlog);
         viewModel.addAttribute("posts", posts);
         return "posts/index";
     }
@@ -105,7 +106,7 @@ public class PostController {
         for (Post currentPost : posts) {
             currentPost.getCategories();
         }
-
+//        viewModel.addAttribute("user", posts.);
         viewModel.addAttribute("posts", posts);
         return "posts/index";
     }
@@ -114,6 +115,7 @@ public class PostController {
     public String show(@PathVariable long id, Model viewModel) {
         System.out.println("id = " + id);
         viewModel.addAttribute("post", postDao.getOne(id));
+        viewModel.addAttribute("postImg", postDao.getOne(id).getPicture_url());
         viewModel.addAttribute("categories", postDao.getOne(id).getCategories());
         return "posts/show";
     }
@@ -134,13 +136,6 @@ public class PostController {
         userDao.save(loggedUser);
         return "/changeImage";
     }
-//    @PathVariable long id,
-//    @RequestParam(name = "photoURL",
-//    required = false) String photoURL){
-//        Post post = postDao.getOne(id);
-////        System.out.println("photoURL = " + photoURL);
-//        post.setPicture_url(photoURL);
-//        postDao.save(post);
 
     @GetMapping("/posts/create")
     public String showCreatePost(Model vModel) {
@@ -219,41 +214,10 @@ public class PostController {
         return "redirect:/myPosts";
     }
 
-//    @PostMapping("/posts/{id}/pictureUpload")
-//    public String saveFile(
-//            @PathVariable long id,
-//            @RequestParam(name = "file") MultipartFile uploadedPicture,
-//            Model model)
-//    {
-//        Post currentPost;
-//        String filename = uploadedPicture.getOriginalFilename();
-//        var is = uploadedPicture.getInputStream();
-//
-//            Files.copy(is, Paths.get(path + fileName),
-//            StandardCopyOption.REPLACE_EXISTING);
-////        String filepath = Paths.get(uploadPath, filename).toString();
-//        File destinationFile = new File(filepath);
-//        try {
-//            System.out.println("destinationFile = " + destinationFile);
-//            uploadedPicture.transferTo(destinationFile);
-//            currentPost = postDao.getOne(id);
-//            currentPost.setPicture_url(uploadedPicture.getOriginalFilename());
-//            System.out.println("uploadedPicture.getOriginalFilename() = " + uploadedPicture.getOriginalFilename());
-//            postDao.save(currentPost);
-//            return  "redirect:/posts/" + id + "/update";
-//        } catch (IOException e) {
-//
-//            e.printStackTrace();
-//            model.addAttribute("message", "Oh no, Oops! Something went wrong! " + e);
-//        }
-//        return "redirect:/posts/" + id + "/update";
-//    }
-
     @PostMapping("/posts/{id}/delete")
     public String delete(@PathVariable long id) {
-//        System.out.println("id = " + id);
         postDao.deleteById(id);
-        return "redirect:/posts";
+        return "redirect:/myPosts";
     }
 
 

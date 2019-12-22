@@ -42,7 +42,7 @@ ul {
     padding: .25em;
     margin: 1em;
     /*height: 400px;*/
-    box-shadow: .2em .2em .2em .2em #888888;
+    /*box-shadow: .2em .2em .2em .2em #888888;*/
 }
 
 /*.card-title {*/
@@ -70,11 +70,21 @@ ul {
 .nav-link {
 
 }
+
+.postDescription{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
 .section-title {
     font-size: 1.5em;
     margin-top: 1em;
 }
 
+.img-thumbnail{
+    /*width: 100%;*/
+    max-width: 150px;
+}
 /*Id*/
 #buttons {
     display: flex;
