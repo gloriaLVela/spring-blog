@@ -44,7 +44,10 @@ ul {
     /*height: 400px;*/
     /*box-shadow: .2em .2em .2em .2em #888888;*/
 }
-
+.improveReadAbility {
+    color: white;
+    text-shadow: 0.075em 0.08em 0.1em rgba(0, 0, 0, 1);
+}
 /*.card-title {*/
 /*    !*color: #3F3C3C;*!*/
 /*    text-shadow: .1em .1em lightgrey;*/
