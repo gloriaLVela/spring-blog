@@ -9,14 +9,14 @@
 
 <div class="container">
     <h1 class="page_title">Update your posts</h1>
-    <style type="text/css">
-        .bg-cover {
-            background-image: url('<?php echo $pageFeaturedImage; ?>');
-        }
-    </style>
+    <!--    <style type="text/css">-->
+    <!--        .bg-cover {-->
+    <!--            background-image: url('<?php echo $pageFeaturedImage; ?>');-->
+    <!--        }-->
+    <!--    </style>-->
     <header class="masthead" th:style="'background: url(' + |cid:${blog_img}| + ') no-repeat;'">
-<!--        <img th:src="${blog_img}">-->
-        <img src=" ${blog_img}" th:src=" ${blog_img}" >
+        <!--        <img th:src="${blog_img}">-->
+        <img src=" ${blog_img}" th:src=" ${blog_img}">
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
@@ -31,24 +31,37 @@
     <section class="container">
         <div id="postList">
             <div th:each="post : ${posts}">
-                <a th:href="@{'posts/' + ${post.id} + '/update'}">
-                    <h1 class="section-heading" th:text="${post.title}"></h1>
-                </a>
-                <div th:text="${post.body}"></div>
-                <div th:if="${post.getCategories().size() > 0}">
-                    <h4 >Categories</h4>
-                    <th:block th:each="category : ${post.categories}">
-                        <div th:text="${category.description}"></div>
-                    </th:block>
-                </div>
+                <div class="card">
+                    <div>
 
-                <div id="buttons">
-                    <form th:action="'/posts/' + ${post.id} + '/update'" method="get">
-                        <input class="btn btn-warning btn-sm" type="submit" value="Update">
-                    </form>
-                    <form th:action="'/posts/' + ${post.id} + '/delete'" method="post">
-                        <input class="btn btn-danger btn-sm" type="submit" value="Delete">
-                    </form>
+                        <a th:href="@{'posts/' + ${post.id} + '/update'}">
+                            <div class="section-title text-capitalize  " th:text="${post.title}"></div>
+                        </a>
+                    </div>
+                    <div class="flex-row">
+                        <span> <img class="img-thumbnail pd-2"
+                                    th:style="${post.getPicture_url() == null} ? 'default' : 'none'"
+                                    src=" ${post.getPicture_url()}" th:src=" ${post.getPicture_url()}"></span>
+                        <span th:text="${post.body}" class="pd-2 text-wrap">
+                        </span>
+
+                    </div>
+
+                    <div th:if="${post.getCategories().size() > 0}">
+                        <h4>Categories</h4>
+                        <th:block th:each="category : ${post.categories}">
+                            <div th:text="${category.description}"></div>
+                        </th:block>
+                    </div>
+
+                    <div id="buttons">
+                        <form th:action="'/posts/' + ${post.id} + '/update'" method="get">
+                            <input class="btn btn-warning btn-sm" type="submit" value="Update">
+                        </form>
+                        <form th:action="'/posts/' + ${post.id} + '/delete'" method="post">
+                            <input class="btn btn-danger btn-sm" type="submit" value="Delete">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

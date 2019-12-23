@@ -11,23 +11,27 @@
     <h1 class="page-title">Featured Posts</h1>
     <div id="postList">
         <div th:each="user : ${users}">
-            <div style="width: 100%;">
-                <a th:href="@{'showBlog/' + ${user.id}}">
-                    <img src="${user.getPosts().get(0).getPicture_url())}"
-                         th:src="${user.getPosts().get(0).getPicture_url()}" id="imgPicture"/>
-                </a>
-            </div>
-            <div class="section-title"> The blog "<span th:text="${user.getBlog_description()}"></span>"
-                <span style="font-style: italic">started on<span th:text="${user.getTime_stamp_String()}"></span></span></div>
-            <div th:each="post : ${user.getPosts().get(0)}">
-                <h2 class="post-title" th:text="${post.title}"></h2>
-                <p class="card-body" th:text="${post.body.substring(0, post.body.indexOf('.')+1)}"></p>
-                <p th:if="${post.getCategories().size() > 0}">
-                <h4>Categories</h4>
-                <th:block th:each="category : ${post.categories}">
-                    <div th:text="${category.getDescription()}"></div>
-                </th:block>
-                </p>
+            <div class="card">
+                <div style="width: 100%;">
+                    <a th:href="@{'showBlog/' + ${user.id}}">
+                        <img src="${user.getBlog_image()}"
+                             th:src="${user.getBlog_image()}" id="imgPicture"/>
+                    </a>
+                </div>
+                <div class="section-title"> The blog "<span th:text="${user.getBlog_description()}"></span>"
+                    <span style="font-style: italic">started on<span
+                            th:text="${user.getTime_stamp_String()}"></span></span>
+                </div>
+                <div th:each="post : ${user.getPosts().get(0)}">
+                    <h2 class="post-title" th:text="${post.title}"></h2>
+                    <p class="card-body" th:text="${post.body.substring(0, post.body.indexOf('.')+1)}"></p>
+                    <p th:if="${post.getCategories().size() > 0}">
+                    <h4>Categories</h4>
+                    <th:block th:each="category : ${post.categories}">
+                        <div th:text="${category.getDescription()}"></div>
+                    </th:block>
+                    </p>
+                </div>
             </div>
         </div>
     </div>

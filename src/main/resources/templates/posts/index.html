@@ -8,18 +8,31 @@
 <div id="mainNav" th:replace="fragments/navbar :: main-navbar"></div>
 <div id="mainDiv" class="container">
     <h1 class="page-title">Blog Posts</h1>
+    <div style="width: 100%;">
+    <img src="${user.getBlog_image()}"
+         th:src="${user.getBlog_image()}" id="imgPictureBlog"/>
+    </div>
+    <div class="section-title"><span th:text="${user.getBlog_description()}"></span>
+    </div>
     <div id="postList">
+
         <div th:each="post : ${posts}">
-            <a th:href="@{'/posts/' + ${post.getId()}}">
-                <h2 class="post-title" th:text="${post.title}"></h2>
-            </a>
-            <p class="card-body" th:text="${post.body.substring(0, post.body.indexOf('.')+1)}"></p>
-            <p th:if="${post.getCategories().size() > 0}">
-            <h4>Categories</h4>
-            <th:block th:each="category : ${post.categories}">
-                <div th:text="${category.getDescription()}"></div>
-            </th:block>
-            </p>
+            <div class="card">
+                <a th:href="@{'/posts/' + ${post.getId()}}">
+                    <h2 class="post-title" th:text="${post.title}"></h2>
+                </a>
+                <div style="width: 100%;">
+                <img src="${post.getPicture_url())}"
+                     th:src="${post.getPicture_url()}" id="imgPicture" />
+                </div>
+                <p class="card-body" th:text="${post.body.substring(0, post.body.indexOf('.')+1)}"></p>
+                <p th:if="${post.getCategories().size() > 0}">
+                <h4>Categories</h4>
+                <th:block th:each="category : ${post.categories}">
+                    <div th:text="${category.getDescription()}"></div>
+                </th:block>
+                </p>
+            </div>
         </div>
     </div>
 </div>

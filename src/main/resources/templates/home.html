@@ -6,63 +6,29 @@
     <th:block th:replace="fragments/header :: main-header"/>
 </head>
 <style>
-    body {
-        background: url(/img/sliced-orange-halfs_800.jpg) no-repeat center center fixed;
-        background-size: cover;
+    #mainDiv {
+        background: url(/img/apples.jpg) no-repeat center center fixed;
+        /*width: 100%;*/
+        /*background-size: cover;*/
+        height: 100%;
+        width: 100%;
     }
 </style>
 <body>
 <div th:replace="fragments/navbar :: main-navbar"></div>
 
-<div class="container">
+<div id="mainDiv" style="margin-top: 1em; height: 100vh;">
     <section class="container d-flex flex-column">
-
-        <div class="main-header d-flex flex-column card" style="margin-top: 15em; margin-bottom: 2em">
-
-
-            <h2 class="card-title mt-1" style="font-size: 24pt">The Kitchen table</h2>
-                <p style="font-size: 18pt">Join the conversation!</p>
-<!--                <p style="font-size: 18pt">Get the food delivered to your gate.</p>-->
-
-
+        <div class="main-header d-flex flex-column " style="margin-top: 12em; border: solid 3px white;">
+            <h2 class="card-title mt-1 text-center improveReadAbility" style="font-size: 24pt; ">The Kitchen Table</h2>
+            <p style="font-size: 18pt" class="improveReadAbility text-center ">Share you story. <br>Create your Blog today!</p>
             <div class="nav-item text-center">
                 <a class="nav-link navlinktext text-center" href="/register"
                    style="background-color: #FF2D32; color: white; font-size: larger; border-radius: 15px; width: 20vw; margin-right: auto; margin-left: auto; margin-bottom: 1em">Sign
                     Up</a>
             </div>
-
-<!--            <div sec:authorize="isAuthenticated()" class="nav-item text-center">-->
-<!--                <a class="nav-link navlinktext text-center" href="/search"-->
-<!--                   style="background-color: #FF2D32; color: white; font-size: larger; border-radius: 15px; width: 20vw; margin-right: auto; margin-left: auto; margin-bottom: 1em">Search-->
-<!--                    available restaurants</a>-->
-<!--            </div>-->
-
         </div>
-
     </section>
-    <!--    <div class="page-title">List of current blogs</div>-->
-
-    <!--    <div id="postList">-->
-    <!--        <div th:each="user : ${users}" >-->
-    <!--            <div class="section-title"> The blog-->
-    <!--                "<span th:text="${user.getBlog_description()}"></span>"-->
-    <!--               <span style="font-style: italic">started on-->
-    <!--                <span th:text="${user.getTime_stamp_String()}"></span></span> </div>-->
-    <!--            <div th:each="post : ${user.getPosts().get(0)}">-->
-    <!--                <a th:href="@{'posts/' + ${post.id}}">-->
-    <!--                    <h2 class="post-title" th:text="${post.title}"></h2>-->
-    <!--                </a>-->
-    <!--                <p class="card-body" th:text="${post.body.substring(0, post.body.indexOf('.')+1)}"></p>-->
-    <!--                <p th:if="${post.getCategories().size() > 0}">-->
-    <!--                <h4>Categories</h4>-->
-    <!--                <th:block th:each="category : ${post.categories}">-->
-    <!--                    <div th:text="${category.getDescription()}"></div>-->
-    <!--                </th:block>-->
-    <!--                </p>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--        <br>-->
-    <!--    </div>-->
-<!--</div>-->
+</div>
 </body>
 </html>
