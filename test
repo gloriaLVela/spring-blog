@@ -1,0 +1,29 @@
+
+<!--    <div style="width: 100%;">-->
+<!--    <img src="${user.getBlog_image()}"-->
+<!--         th:src="${user.getBlog_image()}" id="imgPictureBlog"/>-->
+<!--    </div>-->
+<!--    <div class="section-title"><span th:text="${user.getBlog_description()}"></span>-->
+<!--    </div>-->
+
+
+<!--            <div class="card">-->
+<!--                <div class="d-flex p-2 flex-row justify-content-around">-->
+<!--                    <span class="align-self-center text-capitalize">-->
+<!--                    <a th:href="@{'/posts/' + ${post.getId()}}">-->
+<!--                        <span class="text-capitalize">-->
+<!--                        <h2 th:text="${post.title.toLowerCase()}"></h2>-->
+<!--                            </span>-->
+<!--                    </a>-->
+<!--                </span>-->
+
+
+<!--                </div>-->
+<!--                <p class="card-body" th:text="${post.body.substring(0, post.body.indexOf('.')+1)}"></p>-->
+<!--                <th:block th:if="${post.getCategories().size() > 0}">-->
+<!--                    <h4>Categories</h4>-->
+<!--                    <th:block th:each="category : ${post.categories}">-->
+<!--                        <div th:text="${category.getDescription()}"></div>-->
+<!--                    </th:block>-->
+<!--                </th:block>-->
+<!--            </div>-->

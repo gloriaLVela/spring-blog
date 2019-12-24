@@ -9,18 +9,30 @@
 <div id="mainDiv" class="container">
     <div th:replace="fragments/navbar :: main-navbar"></div>
 
-    <div>
-        <h1 class="page-title" th:text="${post.title}"></h1>
-        <img src="${post.getPicture_url())}"
-             th:src="${post.getPicture_url()}" id="imgPicture"/>
-<!--        <img src="${postImg}" th:src="@{postImg}"/>-->
+    <div class="card">
+        <div class="d-flex p-2 flex-row justify-content-around">
+                    <span class="align-self-center text-capitalize">
+                    <a th:href="@{'/posts/' + ${post.getId()}}">
+                        <span class="text-capitalize">
+                        <h2 th:text="${post.title.toLowerCase()}"></h2>
+                            </span>
+                    </a>
+                </span>
+            <img src="${post.getPicture_url())}"
+                 th:src="${post.getPicture_url()}" id="imgPicture"/>
+            <!--                    </div>-->
+        </div>
+<!--        <h1 class="card-title text-capitalize " th:text="${post.title.toLowerCase()}"></h1>-->
+        <!--        <img class="card-img" src="${post.getPicture_url())}"-->
+        <!--             th:src="${post.getPicture_url()}" id="imgPicture"/>-->
+
         <p th:text="${post.body}"/>
-        <div th:if="${post.getCategories().size() > 0}">
+        <th:block th:if="${post.getCategories().size() > 0}">
             <div class="section-title">Categories</div>
             <th:block th:each="category : ${categories}">
                 <div th:text="${category.description}"></div>
             </th:block>
-        </div>
+        </th:block>
         <input type="hidden" name="id" th:value="${post.id}">
     </div>
 </div>

@@ -134,7 +134,7 @@ public class PostController {
         User loggedUser = userDao.getOne(id);
         loggedUser.setBlog_image(photoURL);
         userDao.save(loggedUser);
-        return "/changeImage";
+        return "redirect:/changeImage";
     }
 
     @GetMapping("/posts/create")
