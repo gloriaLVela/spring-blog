@@ -1,4 +1,7 @@
-/*Tag type*/
+
+/*************************/
+/*        Tag type       */
+/*************************/
 
 /* unvisited link */
 a:link {
@@ -51,7 +54,9 @@ ul {
 
 }
 
-/*Class type*/
+/*************************/
+/*      Class type       */
+/*************************/
 .btn-delete {
     width: 5em;
 }
@@ -126,7 +131,9 @@ ul {
     margin-top: 1em;
 }
 
-/*Id*/
+/*************************/
+/*      Element ID       */
+/*************************/
 #buttons {
     display: flex;
     flex-direction: row;
