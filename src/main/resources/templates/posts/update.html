@@ -9,19 +9,22 @@
 
 <div th:replace="fragments/navbar :: main-navbar"></div>
 <section class="container">
-    <h1 class="page_title">Update Post</h1>
+    <div class="page-title">Update Post</div>
     <div class="container">
         <div class="card">
-            <div style="width: 100%;">
-                <img src="${post.getPicture_url()}" th:src="${post.getPicture_url()}" id="imgPicture"/>
+            <div class="jumbotron jumbotron-fluid"
+                 th:style="'background:url(' + ${post.getPicture_url()} + '); background-size: cover;object-fit: scale-down; background-repeat: no-repeat; text-align: center;  '">
+                <div class="container">
+                    <h1 class="display-4 improveReadAbility text-capitalize "><span th:text="${post.getTitle().toLowerCase()}"></span></h1>
+                </div>
             </div>
 
             <div class="">
                 <form th:action="@{'/add-photo/' + ${post.id}}" th:method="post">
                     <span>  <input hidden th:name="photoURL" id="photoURL" value=""></span>
-                    <span class="pull-left"> <input class="btn" type="BUTTON" value="Upload Picture"
+                    <span class="pull-left"> <input class="btn btn-success" type="BUTTON" value="Upload Picture"
                                                     id="pickPhoto"></span>
-                    <span class="pull-right"> <button class="btn" id="confirm-picture">Save Picture</button></span>
+                    <span class="pull-right"> <button class="btn btn-warning" id="confirm-picture">Save Picture</button></span>
                 </form>
             </div>
         </div>

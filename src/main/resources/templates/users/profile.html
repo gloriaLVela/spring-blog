@@ -25,7 +25,7 @@
                     <div>
 
                         <a th:href="@{'posts/' + ${post.id} + '/update'}">
-                            <div class="section-title text-capitalize  " th:text="${post.title}"></div>
+                            <div class="section-title text-capitalize  " th:text="${post.title.toLowerCase()}"></div>
                         </a>
                     </div>
                     <div class="flex-row">
