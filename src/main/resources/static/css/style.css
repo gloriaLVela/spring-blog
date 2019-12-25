@@ -93,6 +93,10 @@ ul {
     color: white;
     text-shadow: 0.075em 0.08em 0.1em rgba(0, 0, 0, 1);
 }
+
+.inner-card {
+    border-color: white;
+}
 /*.card-title {*/
 /*    !*color: #3F3C3C;*!*/
 /*    text-shadow: .1em .1em lightgrey;*/
@@ -117,6 +121,7 @@ ul {
 .page-title {
     font-size: 2em;
     text-align: center !important;
+    text-transform: capitalize;
 }
 
 .nav-link {
