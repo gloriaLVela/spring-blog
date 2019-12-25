@@ -6,28 +6,41 @@
     <th:block th:replace="fragments/header :: main-header"/>
 </head>
 <body>
+<style>
+    #mainDiv {
+        background: url(/img/login.jpg) no-repeat center center fixed;
+        /*width: 100%;*/
+        background-size: cover;
+        /*height: 100%;*/
+        /*width: 100%;*/
+    }
+</style>
 <div th:replace="fragments/navbar :: main-navbar"></div>
+<body id="mainDiv">
+<div class="container" style="display: flex; justify-content: center;">
+    <div class="card" style="width: 50%;  margin-top: 20px">
 
-<div class="container">
-    <div class="card">
-        <h1 class="page_title">Log In</h1>
+        <div class="page-title">Log In</div>
         <div th:if="${param.error}">
             Invalid Username and Password.
         </div>
         <div th:if="${param.logout}">
             You have been logged out.
         </div>
-
-        <form th:action="@{/login}" method="post" class="form-group">
-            <label for="username">Username</label>
-            <input id="username" name="username" type="text" class="form-control"/>
-            <br>
-            <label for="password">Password</label>
-            <input id="password" name="password" type="password" class="form-control"/>
-            <br>
-            <input type="submit" value="Log In" class="btn btn-block btn-primary"/>
-        </form>
+        <div class="card" style="border-color: white;">
+            <form th:action="@{/login}" method="post" class="form-group">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input id="username" name="username" type="text" class="form-control" placeholder="user name"
+                           th:required="required"/>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" class="form-control" th:required="required"/>
+                </div>
+                <input type="submit" value="Log In" class="btn btn-block btn-primary"/>
+            </form>
+        </div>
     </div>
-</div>
 </body>
 </html>
