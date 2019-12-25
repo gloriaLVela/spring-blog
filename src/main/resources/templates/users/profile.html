@@ -8,27 +8,7 @@
 <div th:replace="fragments/navbar :: main-navbar"></div>
 
 <div class="container">
-    <h1 class="page_title">Update your posts</h1>
-    <!--    <style type="text/css">-->
-    <!--        .bg-cover {-->
-    <!--            background-image: url('<?php echo $pageFeaturedImage; ?>');-->
-    <!--        }-->
-    <!--    </style>-->
-<!--    <header class="masthead" th:style="'background: url(' + |cid:${blog_img}| + ') no-repeat;'">-->
-<!--        &lt;!&ndash;        <img th:src="${blog_img}">&ndash;&gt;-->
-<!--        <img src=" ${blog_img}" th:src=" ${blog_img}">-->
-<!--        <div class="overlay"></div>-->
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!--                <div class="col-lg-8 col-md-10 mx-auto">-->
-<!--                    <div class="post-heading">-->
-<!--                        <h1 th:text="${blog_description}"></h1>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </header>-->
-
+    <div class="page-title">Update your posts</div>
     <div class="jumbotron jumbotron-fluid"
          th:style="'background:url(' + ${user.getBlog_image()} + '); background-size: cover;background-repeat: no-repeat; text-align: center; '">
         <div class="container">

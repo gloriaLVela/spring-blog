@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
-<nav th:fragment="main-navbar" class="navbar navbar-expand-lg navbar-light">
+<nav th:fragment="main-navbar" class="navbar navbar-expand-lg navbar-light" style="background-color: white">
+
     <!-- Collapse button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarResponsive"
@@ -15,12 +16,13 @@
             <ul class="navbar-nav ml-auto">
                 <li><a class="nav-link" href="/home">Home</a></li>
 
-                <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/posts/create">Create Post</a></li>
-                <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/myPosts">View my Posts</a></li>
-
                 <li><a class="nav-link" href="/featured">Featured Posts</a></li>
-                <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/category/maintain">Categories</a></li>
-                <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/category/add">Create a new category</a>
+
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/myPosts">My Posts</a></li>
+
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/posts/create">Create Post</a></li>
+
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/category/maintain">Maintain Categories</a></li>
                 </li>
                 <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/changeImage">Blog Image</a></li>
 

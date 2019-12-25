@@ -4,20 +4,41 @@
     <meta charset="UTF-8">
     <title>Show posts</title>
     <th:block th:replace="fragments/header :: main-header"/>
+    <style>
+        #mainDiv {
+            background: url(/img/folders.jpg) no-repeat center center fixed;
+            max-width: 100%;
+            background-color: white;
+            background-size: auto 100%;
+            background-repeat: no-repeat;
+            background-position: left top;
+        }
+    </style>
 </head>
-<body>
+<div th:replace="fragments/navbar :: main-navbar" style="width: 100%" ></div>
+<body id="mainDiv" style="margin: auto">
+<section class="container"  >
+    <div class="row h-100">
+        <div class="col-12 my-auto">
+            <div class="card card-block w-75 mx-auto">
+               <div class="card inner-card" >
+                    <div class="page-title">Create a new Category</div>
+                    <form th:action="@{/category/add}" th:method="post" th:object="${category}" >
+                        <div class="form-group">
+                            <label for="description" class="form-control">Description: </label>
+                            <textarea id="description" th:field="*{description}" placeholder="category description" th:required="required" class="form-control"/>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <input class="btn btn-success " type="submit"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div th:replace="fragments/navbar :: main-navbar"></div>
-<section class="container">
-    <h1 class="page_title">Create a new Category</h1>
-    <form th:action="@{/category/add}" th:method="post" th:object="${category}" class="form-group">
-        <label for="description">Description</label>
-        <br>
-        <textarea id="description" th:field="*{description}"/>
-        <br>
-        <input type="submit"/>
-
-    </form>
 </section>
 
 </body>

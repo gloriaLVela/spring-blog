@@ -4,17 +4,15 @@
     <meta charset="UTF-8"/>
     <title>Log In</title>
     <th:block th:replace="fragments/header :: main-header"/>
+    <style>
+        #mainDiv {
+            background: url(/img/login.jpg) no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
 </head>
 <body>
-<style>
-    #mainDiv {
-        background: url(/img/login.jpg) no-repeat center center fixed;
-        /*width: 100%;*/
-        background-size: cover;
-        /*height: 100%;*/
-        /*width: 100%;*/
-    }
-</style>
+
 <div th:replace="fragments/navbar :: main-navbar"></div>
 <body id="mainDiv">
 <div class="container" style="display: flex; justify-content: center;">

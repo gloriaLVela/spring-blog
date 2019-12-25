@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:fd="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Display a post</title>
@@ -25,8 +26,8 @@
 <!--        <h1 class="card-title text-capitalize " th:text="${post.title.toLowerCase()}"></h1>-->
         <!--        <img class="card-img" src="${post.getPicture_url())}"-->
         <!--             th:src="${post.getPicture_url()}" id="imgPicture"/>-->
-
-        <p th:text="${post.body}"/>
+<!--        <p fd:lstext="${post.body}"></p>-->
+        <p class="mt-1" th:text="${post.body}"/>
         <th:block th:if="${post.getCategories().size() > 0}">
             <div class="section-title">Categories</div>
             <th:block th:each="category : ${categories}">
