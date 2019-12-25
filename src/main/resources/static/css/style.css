@@ -89,6 +89,19 @@ ul {
     opacity: 0;
 }
 
+.cropped {
+    object-fit: scale-down;
+    overflow: hidden;
+    max-height: 180px;
+    max-width: 359px;
+    border: 5px solid black;
+}
+
+.cropped img {
+    height: auto;
+    width: 359px;
+    /*margin: -10px 0px 0px -180px;*/
+}
 .improveReadAbility {
     color: white;
     text-shadow: 0.075em 0.08em 0.1em rgba(0, 0, 0, 1);
