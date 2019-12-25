@@ -60,6 +60,7 @@ public class UserController {
         for (Post currentPost : posts) {
             currentPost.getCategories();
         }
+        viewModel.addAttribute("user", userDao.getOne(loggedUser.getId()));
         viewModel.addAttribute("blog_img", userDao.getOne(loggedUser.getId()).getBlog_image());
         viewModel.addAttribute("blog_description", userDao.getOne(loggedUser.getId()).getBlog_description());
         viewModel.addAttribute("posts", posts);

@@ -109,12 +109,14 @@ ul {
 .orange {
     color: #e88e01;
 }
+
 .post-title{
     text-transform: capitalize;
 }
+
 .page-title {
     font-size: 2em;
-    margin-top: 1em;
+    text-align: center !important;
 }
 
 .nav-link {
