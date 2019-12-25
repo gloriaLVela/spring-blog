@@ -162,6 +162,13 @@ ul {
     overflow: auto;
 }
 
+#postGrid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: .1em;
+    overflow: auto;
+}
+
 /*******************************************/
 /* Small devices (tablets, 480px and less) */
 /*******************************************/
