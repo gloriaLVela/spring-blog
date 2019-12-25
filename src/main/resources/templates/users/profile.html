@@ -29,9 +29,10 @@
                         </a>
                     </div>
                     <div class="flex-row">
-                        <span> <img class="img-thumbnail pd-2"
-                                    th:style="${post.getPicture_url() == null} ? 'default' : 'none'"
-                                    src=" ${post.getPicture_url()}" th:src=" ${post.getPicture_url()}"></span>
+                        <div class="cropped" style="margin: 1em;">
+                            <img th:style="${post.getPicture_url() == null} ? 'default' : 'none'"
+                                    src=" ${post.getPicture_url()}" th:src=" ${post.getPicture_url()}" >
+                        </div>
                         <span th:text="${post.body}" class="pd-2 text-wrap">
                         </span>
 
