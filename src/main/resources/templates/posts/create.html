@@ -1,35 +1,97 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Show posts</title>
     <th:block th:replace="fragments/header :: main-header"/>
+    <style>
+        #mainDiv {
+            background: url(/img/create-post.jpg) no-repeat center center fixed;
+            background-color: white;
+            /*background-size: auto 100%;*/
+            background-repeat: no-repeat;
+            background-position: left top;
+        }
+    </style>
 </head>
-<body>
+<body id="mainDiv">
 
 <div th:replace="fragments/navbar :: main-navbar"></div>
-
-
-<div class="container">
-    <h1 class="page_title">Create a new Post</h1>
-    <form class="form-group" th:action="@{/posts/create}" th:method="post" th:object="${post}">
-        <label for="title">Title</label>
-
-        <input id="title" th:field="*{title}" class="form-control"/>
-        <br>
-        <label for="body">Body</label>
-        <textarea id="body" th:field="*{body}" class="form-control"/>
-        <br>
-        <div>Categories</div>
-        <div>
-            <th:block th:each="category : ${categories}">
-                <input type="checkbox" th:field="*{categories}" name="categories" th:value="${category.id}"/>
-                <label th:text="${category.description}"></label>
-            </th:block>
+<section class="container h-100 d-flex justify-content-center align-items-center">
+    <div class="card" style="margin-top: 4em; width:100%;">
+        <div class="card inner-card ">
+            <div class="page-title">Create a new Post</div>
+            <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
+                <input type="hidden" th:field="*{id}" id="postId">
+                <input type="hidden" th:field="${userId}" id="userId">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input id="title" th:field="*{title}" class="form-control" placeholder="title" maxlength="255"
+                           th:required="required"/>
+                </div>
+                <div class="form-group">
+                    <div style="width: 100%;">
+                        <img  src="*{picture_url}" th:src="*{picture_url}" id="imgPicture"  name="imgPicture"/>
+                    </div>
+                    <span>  <input hidden th:name="photoURL" id="photoURL" value="" th:required="required"></span>
+                    <span class="pull-left"> <input class="btn" type="BUTTON" value="Upload Picture"
+                                                    id="pickPhoto"></span>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="body">Body</label>
+                    <textarea id="body" th:field="*{body}" class="form-control" placeholder="body"
+                              th:required="required"/>
+                </div>
+                <div>Categories</div>
+                <div>
+                    <th:block th:each="category : ${categories}">
+                        <input type="checkbox" th:field="*{categories}" name="categories" th:value="${category.id}"/>
+                        <label th:text="${category.description}"></label>
+                    </th:block>
+                </div>
+                <input type="submit" class="btn btn-block btn-success"/>
+            </form>
         </div>
-        <input type="submit" class="btn btn-block btn-primary"/>
-    </form>
-</div>
+    </div>
+</section>
+<!--FileStack Photo -->
+<script>
+    const client = filestack.init('ABY8V4s1ETM2L3jaW4V5ez');
+    var watermarkHandle = '';
 
+    const getPostId = () => {
+        return new Promise((resolve) => {
+            resolve({
+                postId: $('postId').innerText
+            })
+        });
+    };
+
+    $('#pickPhoto').on('click', function () {
+        // user id taken from external source ie: your database, Facebook etc.
+        getPostId().then((response) => {
+            const userId = response.userId;
+            const apikey = 'ABY8V4s1ETM2L3jaW4V5ez';
+            const client = filestack.init(apikey);
+            const options = {
+                uploadInBackground: false,
+                onFileUploadFinished: (response) => {
+                    var objJSON = (response);
+                    //Sets the watermark handle to the handle of the first file in the result
+                    watermarkHandle = objJSON['url'];
+                    document.getElementById("photoURL").value = watermarkHandle;
+                    document.getElementById("imgPicture").src = watermarkHandle;
+                    // console.log(document.getElementById("photoURL").value);
+                    return watermarkHandle;
+
+                }
+            };
+            const picker = client.picker(options);
+            picker.open();
+        });
+    });
+
+</script>
 </body>
 </html>

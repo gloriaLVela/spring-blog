@@ -141,15 +141,21 @@ public class PostController {
     public String showCreatePost(Model vModel) {
         vModel.addAttribute("post", new Post());
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        vModel.addAttribute("userId", loggedUser.getId());
         vModel.addAttribute("categories", userDao.findByUsername(loggedUser.getUsername()).getCategories());
         return "/posts/create";
     }
 
     @PostMapping("/posts/create")
-    public String create(@ModelAttribute Post newPost, @RequestParam(value = "categories", required = false) int[] categories, Model vModel) {
+    public String create(@ModelAttribute Post newPost,
+                         @RequestParam(value = "categories", required = false) int[] categories,
+                         @RequestParam(name = "photoURL",
+                                 required = false) String photoURL,
+                         Model vModel) {
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         newPost.setUser(loggedUser);
         addCategoriesPost(categories, newPost);
+        newPost.setPicture_url(photoURL);
         postDao.save(newPost);
         return "redirect:/myPosts";
     }
@@ -193,7 +199,6 @@ public class PostController {
                            @RequestParam(name = "photoURL",
             required = false) String photoURL){
         Post post = postDao.getOne(id);
-//        System.out.println("photoURL = " + photoURL);
         post.setPicture_url(photoURL);
         postDao.save(post);
         return "redirect:/posts/" + post.getId() + "/update";
