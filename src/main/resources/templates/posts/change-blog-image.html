@@ -13,9 +13,12 @@
     <h1 class="page_title">Change Blog Image</h1>
     <div class="card">
 <!--       <th:block th:value="${user}">-->
-           <div style="width: 100%;">
-               <img src="${blogImage}" th:src="${blogImage}" id="imgPicture"/>
-           </div>
+<!--           <div style="width: 100%;">-->
+<!--               <img src="${blogImage}" th:src="${blogImage}" id="imgPicture"/>-->
+<!--           </div>-->
+        <div class="jumbotron jumbotron-fluid"
+             th:style="'background:url(' + ${blogImage} + '); background-size: cover;background-repeat: no-repeat; text-align: center; '">
+        </div>
         <div class="">
             <form th:action="@{'/changeBlogImage/' + ${userId}}" th:method="post">
                 <span>  <input hidden th:name="photoURL" id="photoURL" value=""></span>
