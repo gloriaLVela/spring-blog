@@ -1,6 +1,7 @@
 package com.codeup.blog.blog.controllers;
 
 import com.codeup.blog.blog.models.Category;
+import com.codeup.blog.blog.models.Post;
 import com.codeup.blog.blog.models.User;
 import com.codeup.blog.blog.repositories.CategoryRepository;
 
@@ -9,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class CategoryController {
@@ -60,6 +63,7 @@ public class CategoryController {
 
     @PostMapping("/category/{id}/delete")
     public String updateCategory(@PathVariable long id) {
+
         categoryDao.deleteById(id);
         return "redirect:/category/maintain";
     }
