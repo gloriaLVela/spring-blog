@@ -7,6 +7,7 @@ import com.codeup.blog.blog.repositories.PostRepository;
 import com.codeup.blog.blog.models.Post;
 import com.codeup.blog.blog.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,16 +50,6 @@ public class PostController {
 
     @GetMapping("/home")
     public String home(Model viewModel) {
-//        List<User> users = userDao.findAll();
-//        List<Post> posts = postDao.findAll();
-//        Post currentPost = new Post();
-//
-//
-//        for (User currentUser : users) {
-//           posts.add( userDao.findByUsername(currentUser.getUsername()).getPosts().get(0));
-//        }
-//
-//        viewModel.addAttribute("users", users);
         return "home";
 
     }
@@ -92,16 +83,6 @@ public class PostController {
 
     @GetMapping("/posts")
     public String index(Model viewModel) {
-//        List<User> users = userDao.findAll();
-//        List<Post> posts = postDao.findAll();
-//        Post currentPost = new Post();
-//
-//
-//        for (User currentUser : users) {
-//            posts.add( userDao.findByUsername(currentUser.getUsername()).getPosts().get(0));
-//        }
-//
-//        viewModel.addAttribute("users", users);
         List<Post> posts = postDao.findAll();
         for (Post currentPost : posts) {
             currentPost.getCategories();
@@ -122,7 +103,8 @@ public class PostController {
     @GetMapping("/changeImage")
     public String changeBlogPicture(Model vModel) {
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        vModel.addAttribute("blogImage", loggedUser.getBlog_image());
+//        vModel.addAttribute("blogImage", loggedUser.getBlog_image());
+        vModel.addAttribute("user", userDao.getOne(loggedUser.getId()));
         vModel.addAttribute("userId", loggedUser.getId());
         return "/posts/change-blog-image";
     }
@@ -152,6 +134,8 @@ public class PostController {
                          @RequestParam(name = "photoURL",
                                  required = false) String photoURL,
                          Model vModel) {
+        System.out.println( "create");
+        System.out.println("photoURL = " + photoURL);
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         newPost.setUser(loggedUser);
         addCategoriesPost(categories, newPost);
@@ -199,6 +183,7 @@ public class PostController {
                            @RequestParam(name = "photoURL",
             required = false) String photoURL){
         Post post = postDao.getOne(id);
+        System.out.println("photoURL = " + photoURL);
         post.setPicture_url(photoURL);
         postDao.save(post);
         return "redirect:/posts/" + post.getId() + "/update";
@@ -219,8 +204,10 @@ public class PostController {
         return "redirect:/myPosts";
     }
 
+    @Query
     @PostMapping("/posts/{id}/delete")
     public String delete(@PathVariable long id) {
+
         postDao.deleteById(id);
         return "redirect:/myPosts";
     }

@@ -25,7 +25,7 @@ public class Category {
         this.user = user;
     }
 
-    @ManyToMany(mappedBy = "categories")
+    @ManyToMany(mappedBy = "categories", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Post> posts;
 
     public Category() {

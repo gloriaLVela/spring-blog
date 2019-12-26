@@ -3,23 +3,24 @@
 
 <head>
     <th:block th:replace="fragments/header :: main-header"/>
+    <style>
+        #mainDiv {
+            background: url(/img/writting.jpeg) no-repeat center center fixed;
+            /*width: 100%;*/
+            background-size: cover;
+            /*height: 100%;*/
+            /*width: 100%;*/
+        }
+    </style>
 </head>
-<style>
-    #mainDiv {
-        background: url(/img/writting.jpeg) no-repeat center center fixed;
-        /*width: 100%;*/
-        background-size: cover;
-        /*height: 100%;*/
-        /*width: 100%;*/
-    }
-</style>
+
 <body id="mainDiv">
 <div th:replace="fragments/navbar :: main-navbar"></div>
 <div   class="container" style="display: flex; justify-content: center;">
     <div class="card" style="width: 50%;  margin-top: 20px">
         <form th:action="@{/sign-up}" method="POST" th:object="${user}" class="form-group">
             <div class="card" style="border-color: white;">
-                <div class="page-title">Create an account</div>
+                <div class="page-title">Create account</div>
                 <div class="form-group">
                     <label for="username" class="">User name: </label>
                     <input id="username" class="form-control" th:field="*{username}" placeholder="user name" th:required="required"/>

@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <title>Show posts</title>
     <th:block th:replace="fragments/header :: main-header"/>
+    <style>
+        #card-deck img {
+            object-fit: cover;
+        }
+    </style>
 </head>
-<style>
-    #card-deck img {
-        object-fit: cover;
-    }
-</style>
+
 <div id="mainNav" th:replace="fragments/navbar :: main-navbar"></div>
 <div id="mainDiv" class="container">
     <!--    <h1 class="page-title">Blog Posts</h1>-->
