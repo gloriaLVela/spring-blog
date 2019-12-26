@@ -31,8 +31,7 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-//    @ManyToMany(cascade = CascadeType.REMOVE)
-    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name="post_categories",
             joinColumns={@JoinColumn(name="post_id")},

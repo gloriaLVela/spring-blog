@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class PostController {
         List<Post> posts = postDao.findAll();
 //        Post currentPost = new Post();
         for (User currentUser : users) {
-            posts.add( userDao.findByUsername(currentUser.getUsername()).getPosts().get(0));
+            posts.add(userDao.findByUsername(currentUser.getUsername()).getPosts().get(0));
         }
 
         viewModel.addAttribute("users", users);
@@ -78,7 +79,6 @@ public class PostController {
         viewModel.addAttribute("posts", posts);
         return "posts/index";
     }
-
 
 
     @GetMapping("/posts")
@@ -100,6 +100,7 @@ public class PostController {
         viewModel.addAttribute("categories", postDao.getOne(id).getCategories());
         return "posts/show";
     }
+
     @GetMapping("/changeImage")
     public String changeBlogPicture(Model vModel) {
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -134,7 +135,7 @@ public class PostController {
                          @RequestParam(name = "photoURL",
                                  required = false) String photoURL,
                          Model vModel) {
-        System.out.println( "create");
+        System.out.println("create");
         System.out.println("photoURL = " + photoURL);
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         newPost.setUser(loggedUser);
@@ -181,7 +182,7 @@ public class PostController {
     @PostMapping("add-photo/{id}")
     public String addPhoto(@PathVariable long id,
                            @RequestParam(name = "photoURL",
-            required = false) String photoURL){
+                                   required = false) String photoURL) {
         Post post = postDao.getOne(id);
         System.out.println("photoURL = " + photoURL);
         post.setPicture_url(photoURL);
@@ -189,6 +190,7 @@ public class PostController {
         return "redirect:/posts/" + post.getId() + "/update";
 
     }
+
     @PostMapping("/posts/{id}/update")
     public String update(@PathVariable long id,
                          @RequestParam String title,
@@ -204,10 +206,15 @@ public class PostController {
         return "redirect:/myPosts";
     }
 
-    @Query
+
     @PostMapping("/posts/{id}/delete")
     public String delete(@PathVariable long id) {
-
+        Post currentPost = postDao.getOne(id);
+        List<Category> categoryList = currentPost.getCategories();
+        while(categoryList.size() > 0){
+            categoryList.remove(categoryList.get(0));
+        }
+        currentPost.setCategories(categoryList);
         postDao.deleteById(id);
         return "redirect:/myPosts";
     }
