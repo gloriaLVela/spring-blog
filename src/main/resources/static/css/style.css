@@ -117,7 +117,15 @@ ul {
 /*.card-body{*/
 /*    color: #a8a660;*/
 /*}*/
-
+.jumbotronImg {
+    object-fit: none !important;
+    background-repeat: no-repeat !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  max-height: 200px;
+    /*object-position: center !important;*/
+}
 .lightgreen {
     color: #dadfbc;
 }

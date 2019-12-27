@@ -11,16 +11,17 @@
 <section class="container">
     <div class="page-title">Update Post</div>
     <div class="container">
-        <div class="card">
-            <div id="imgPicture"
-                 class="jumbotron jumbotron-fluid center center"
-                 th:style="'background:url(' + ${post.getPicture_url()} + '); background-size: cover;  background-repeat: no-repeat; text-align: center;  '">
-                <div class="container">
-                    <h1 class="display-4 improveReadAbility text-capitalize "><span
-                            th:text="${post.getTitle().toLowerCase()}"></span></h1>
-                </div>
-            </div>
 
+        <div class="card">
+            <!--            <div id="imgPicture"-->
+            <!--                 class="jumbotron  "-->
+            <!--                 th:style="'background:url(' + ${post.getPicture_url()} + '); background-repeat: no-repeat; '">-->
+            <!--            </div>-->
+            <div class=" jumbotronImg">
+                <img id="imgPicture"
+                     src="${post.getPicture_url()} "
+                     th:src="${post.getPicture_url()}" style="max-height: 200px;"/>
+            </div>
             <form th:action="@{'/add-photo/' + ${post.id}}" th:method="post">
                 <input hidden th:name="photoURL" id="photoURL" value="">
 
@@ -33,33 +34,36 @@
 
             </form>
         </div>
-    </div>
-    <div class="card">
-        <form th:action="@{'/posts/' + ${post.id} + '/update'}" th:method="post" th:object="${post}" class="form-group">
-            <div class="container">
-                <label>
-                    Title:
-                </label>
-                <br>
-                <input th:field="*{title}" class="form-control"/>
-                <div>
-                    Body:
+        <div class="card">
+            <form th:action="@{'/posts/' + ${post.id} + '/update'}" th:method="post" th:object="${post}"
+                  class="form-group">
+                <div class="container">
+                    <label>
+                        Title:
+                    </label>
+                    <br>
+                    <input th:field="*{title}" class="form-control"/>
+                    <div>
+                        Body:
+                    </div>
+                    <textarea th:field="*{body}" class="form-control"/>
+                    <div>
+                        <th:block th:each="category : ${categories}">
+                            <input type="checkbox" th:field="*{categories}" name="categories"
+                                   th:value="${category.id}"/>
+                            <label th:text="${category.description}"></label>
+                        </th:block>
+                        <th:block th:each="category : ${newCategories}">
+                            <input type="checkbox" th:field="*{categories}" name="newCategories"
+                                   th:value="${category.id}"/>
+                            <label th:text="${category.description}"></label>
+                        </th:block>
+                    </div>
+                    <input type="hidden" th:field="*{id}" id="postId">
+                    <input class="btn btn-warning" type="submit" value="Update">
                 </div>
-                <textarea th:field="*{body}" class="form-control"/>
-                <div>
-                    <th:block th:each="category : ${categories}">
-                        <input type="checkbox" th:field="*{categories}" name="categories" th:value="${category.id}"/>
-                        <label th:text="${category.description}"></label>
-                    </th:block>
-                    <th:block th:each="category : ${newCategories}">
-                        <input type="checkbox" th:field="*{categories}" name="newCategories" th:value="${category.id}"/>
-                        <label th:text="${category.description}"></label>
-                    </th:block>
-                </div>
-                <input type="hidden" th:field="*{id}" id="postId">
-                <input class="btn btn-warning" type="submit" value="Update">
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </section>
 <!--FileStack Photo -->
