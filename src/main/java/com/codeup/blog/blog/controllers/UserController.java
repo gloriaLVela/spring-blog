@@ -26,7 +26,7 @@ public class UserController {
     private final UserRepository userDao;
 
 
-    public UserController( UserRepository userDao,PasswordEncoder passwordEncoder) {
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
     }
@@ -61,7 +61,8 @@ public class UserController {
             currentPost.getCategories();
         }
         viewModel.addAttribute("user", userDao.getOne(loggedUser.getId()));
-         viewModel.addAttribute("posts", posts);
+        viewModel.addAttribute("posts", posts);
+        viewModel.addAttribute("newLineChar", '\n');
         return "users/profile";
     }
 

@@ -10,7 +10,8 @@
 <div id="mainDiv" class="container">
     <div th:replace="fragments/navbar :: main-navbar"></div>
     <div class="card">
-        <div class="d-flex p-2 flex-row justify-content-around">
+        <div class="card inner-card">
+            <div class="d-flex p-2 flex-row justify-content-around">
                     <span class="align-self-center text-capitalize">
                     <a th:href="@{'/posts/' + ${post.getId()}}">
                         <span class="text-capitalize">
@@ -18,18 +19,18 @@
                             </span>
                     </a>
                 </span>
-            <img src="${post.getPicture_url())}"
-                 th:src="${post.getPicture_url()}" id="imgPicture"/>
-        </div>
-
-        <p class="mt-1" th:text="${post.body}"/>
-        <th:block th:if="${post.getCategories().size() > 0}">
-            <div class="section-title">Categories</div>
-            <th:block th:each="category : ${categories}">
-                <div th:text="${category.description}"></div>
+                <img src="${post.getPicture_url())}"
+                     th:src="${post.getPicture_url()}" id="imgPicture"/>
+            </div>
+            <p class="mt-1" th:utext="${#strings.replace(post.body, newLineChar, '&lt;br /&gt;')}"></p>
+            <th:block th:if="${post.getCategories().size() > 0}">
+                <div class="section-title">Categories</div>
+                <th:block th:each="category : ${categories}">
+                    <div th:text="${category.description}"></div>
+                </th:block>
             </th:block>
-        </th:block>
-        <input type="hidden" name="id" th:value="${post.id}">
+            <input type="hidden" name="id" th:value="${post.id}">
+        </div>
     </div>
 </div>
 </body>
