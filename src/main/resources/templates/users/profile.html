@@ -18,23 +18,26 @@
             </p>
         </div>
     </div>
-    <section class="container">
-        <div id="postList">
-            <div th:each="post : ${posts}">
-                <div class="card">
+    <!--List of posts-->
+    <div id="postList">
+        <div th:each="post : ${posts}">
+            <div class="card">
+                <div class="card inner-card">
                     <div>
 
                         <a th:href="@{'posts/' + ${post.id} + '/update'}">
-                            <div class="section-title text-capitalize  " th:text="${post.title.toLowerCase()}"></div>
+                            <div class="section-title text-capitalize text-center"
+                                 th:text="${post.title.toLowerCase()}"></div>
                         </a>
                     </div>
-                    <div class="flex-row">
-                        <div class="cropped" style="margin: 1em;">
-                            <img th:style="${post.getPicture_url() == null} ? 'default' : 'none'"
-                                    src=" ${post.getPicture_url()}" th:src=" ${post.getPicture_url()}" >
+                    <div>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div class="cropped" style="margin: 1em;">
+                                <img th:style="${post.getPicture_url() == null} ? 'default' : 'none'"
+                                     src=" ${post.getPicture_url()}" th:src=" ${post.getPicture_url()}">
+                            </div>
                         </div>
-                        <span th:text="${post.body}" class="pd-2 text-wrap">
-                        </span>
+                        <div th:text="${post.body}" class="pd-2 text-wrap"></div>
 
                     </div>
 
@@ -56,8 +59,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </div>
-
 </body>
 </html>

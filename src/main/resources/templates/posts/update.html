@@ -13,11 +13,7 @@
     <div class="container">
 
         <div class="card">
-            <!--            <div id="imgPicture"-->
-            <!--                 class="jumbotron  "-->
-            <!--                 th:style="'background:url(' + ${post.getPicture_url()} + '); background-repeat: no-repeat; '">-->
-            <!--            </div>-->
-            <div class=" jumbotronImg">
+            <div class=" jumbotronImg" style="margin: 1em;">
                 <img id="imgPicture"
                      src="${post.getPicture_url()} "
                      th:src="${post.getPicture_url()}" style="max-height: 200px;"/>
@@ -46,7 +42,7 @@
                     <div>
                         Body:
                     </div>
-                    <textarea th:field="*{body}" class="form-control"/>
+                    <textarea th:field="*{body}" class="form-control" rows="5" style="overflow: auto"/>
                     <div>
                         <th:block th:each="category : ${categories}">
                             <input type="checkbox" th:field="*{categories}" name="categories"
