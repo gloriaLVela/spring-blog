@@ -37,7 +37,7 @@
                                      src=" ${post.getPicture_url()}" th:src=" ${post.getPicture_url()}">
                             </div>
                         </div>
-                        <div th:text="${post.body}" class="pd-2 text-wrap"></div>
+                       <p th:utext="${#strings.replace(post.body, newLineChar, '&lt;br /&gt;')}" ></p>
 
                     </div>
 
@@ -61,5 +61,8 @@
         </div>
     </div>
 </div>
+<script>
+    $('.split-lines').val().replace(/\n\r?/g, '<br />');
+</script>
 </body>
 </html>

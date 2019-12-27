@@ -98,6 +98,7 @@ public class PostController {
         viewModel.addAttribute("post", postDao.getOne(id));
         viewModel.addAttribute("postImg", postDao.getOne(id).getPicture_url());
         viewModel.addAttribute("categories", postDao.getOne(id).getCategories());
+        viewModel.addAttribute("newLineChar", '\n');
         return "posts/show";
     }
 
