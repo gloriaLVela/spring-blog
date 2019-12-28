@@ -23,7 +23,7 @@
                 </div>
                 </a>
                 <div th:each="post : ${user.getPosts().get(0)}">
-                    <h2 class="post-title" th:text="${post.title}"></h2>
+                    <div class="post-title" th:text="${post.title}"></div>
                     <p class="card-body" th:text="${post.body.substring(0, post.body.indexOf('.')+1)}"></p>
                     <th:block th:if="${post.getCategories().size() > 0}">
                         <h4>Categories</h4>
