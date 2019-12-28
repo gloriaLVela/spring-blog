@@ -136,6 +136,7 @@ ul {
 
 .post-title{
     text-transform: capitalize;
+    font-size: 1.5em;
 }
 
 .page-title {
@@ -145,7 +146,7 @@ ul {
 }
 
 .nav-link {
-
+color: #868e96;
 }
 
 .postDescription{
@@ -249,6 +250,11 @@ ul {
     }
 }
 
+.img-container {
+    margin: auto;
+    text-align: center !important;
+
+}
 
 /********************************************/
 /*  Small devices (tablets, 600px and less) */
@@ -259,11 +265,23 @@ ul {
     form {
         margin-bottom: 0;
     }
-    #imgPicture {
-        max-width: 600px;
+
+    #imgPictureShow {
+        height: auto;
+        width: 359px;
     }
 
+    #postColumn{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-content: center;
+    }
 
+    .post-title{
+        text-transform: capitalize;
+        font-size: 1.2em;
+    }
 
 
 }
@@ -273,10 +291,21 @@ ul {
 /*******************************************/
 
 @media screen and (min-width: 601px) {
-    #imgPicture {
-        max-width: 800px;
+    #imgPictureShow {
+        height: auto;
+        width: 359px;
     }
 
+    #postColumn{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .post-title{
+        text-transform: capitalize;
+        font-size: 1.5em;
+    }
 }
 
 /*******************************************/
@@ -284,10 +313,21 @@ ul {
 /*******************************************/
 
 @media screen and (min-width: 800px) {
-    #imgPicture {
-        max-width: 990px;
+    #imgPictureShow {
+        height: auto;
+        width: 359px;
     }
 
+    #postColumn{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .post-title{
+        text-transform: capitalize;
+        font-size: 2em;
+    }
 }
 
 /*************************************************/
@@ -295,8 +335,19 @@ ul {
 /*************************************************/
 
 @media screen and (min-width: 990px) {
-    #imgPicture {
-        max-width: 1200px;
+    #imgPictureShow {
+        height: auto;
+        width: 359px;
+    }
+    .post-title{
+        text-transform: capitalize;
+        font-size: 2em;
+    }
+
+    #postColumn{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
     }
 
 }
