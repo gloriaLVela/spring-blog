@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <th:block th:replace="fragments/header :: main-header"/>
@@ -12,52 +12,59 @@
 </head>
 
 <body id="mainDiv">
-<div th:replace="fragments/navbar :: main-navbar"></div>
-<div class="container d-flex justify-content-center align-items-center" style="margin-top: 3em;">
-    <div class="card" style="margin-top: 1.5em; width:50%;">
-        <form th:action="@{/sign-up}" method="POST" th:object="${user}" class="form-group">
-            <div class="card" style="border-color: white;">
-                <div class="page-title">Create account</div>
-                <div class="form-group">
-                    <label for="username" class="">User name: </label>
-                    <input id="username" class="form-control" th:field="*{username}" placeholder="user name"
-                           th:required="required"/>
+<div style="display: flex; flex-direction:column; justify-content: flex-start; height: 100vh;">
+    <div th:replace="fragments/navbar :: main-navbar"></div>
+    <div class="container" style="margin: auto;">
+        <div style="display: flex; justify-content: center;">
+            <div style="display: flex; flex-direction:column; align-content: space-around;">
+                <div class="card">
+                    <form th:action="@{/sign-up}" method="POST" th:object="${user}" class="form-group">
+                        <div class="card inner-card">
+                            <div class="page-title">Create account</div>
+                            <div class="form-group">
+                                <label for="username" class="">User name: </label>
+                                <input id="username" class="form-control" th:field="*{username}" placeholder="user name"
+                                       th:required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="details">Topic description: </label>
+                                <input id="details" th:field="*{blog_description}" class="form-control"
+                                       placeholder="topic descriptiion" th:required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="blog_image">Blog Image</label>
+                                <input id="blog_image" th:field="*{blog_image}" class="form-control"
+                                       placeholder="image url"
+                                       th:required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input id="email" th:field="*{email}" class="form-control" placeholder="email"
+                                       th:required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input id="password" type="password" th:field="*{password}" class="form-control"
+                                       th:required="required"/>
+                            </div>
+                            <input value="Sign me up!" type="submit" class="btn btn-block btn-primary"/>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="details">Topic description: </label>
-                    <input id="details" th:field="*{blog_description}" class="form-control"
-                           placeholder="topic descriptiion" th:required="required"/>
-                </div>
-                <div class="form-group">
-                    <label for="blog_image">Blog Image</label>
-                    <input id="blog_image" th:field="*{blog_image}" class="form-control" placeholder="image url"
-                           th:required="required"/>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" th:field="*{email}" class="form-control" placeholder="email"
-                           th:required="required"/>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input id="password" type="password" th:field="*{password}" class="form-control"
-                           th:required="required"/>
-                </div>
-                <input value="Sign me up!" type="submit" class="btn btn-block btn-primary"/>
             </div>
-        </form>
+        </div>
     </div>
-</div>
-<div class="credit_photo">
-    <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px"
-       href="https://unsplash.com/@honza_kahanek?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge"
-       target="_blank" rel="noopener noreferrer"
-       title="Download free do whatever you want high-resolution photos from Jan Kahánek"><span
-            style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg"
-                                                              style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white"
-                                                              viewBox="0 0 32 32"><title>unsplash-logo</title><path
-            d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span
-            style="display:inline-block;padding:2px 3px">Jan Kahánek</span></a>
+    <div class="credit_photo">
+        <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px"
+           href="https://unsplash.com/@honza_kahanek?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge"
+           target="_blank" rel="noopener noreferrer"
+           title="Download free do whatever you want high-resolution photos from Jan Kahánek"><span
+                style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                  style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white"
+                                                                  viewBox="0 0 32 32"><title>unsplash-logo</title><path
+                d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span
+                style="display:inline-block;padding:2px 3px">Jan Kahánek</span></a>
+    </div>
 </div>
 </body>
 </html>
