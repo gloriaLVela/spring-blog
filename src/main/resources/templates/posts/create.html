@@ -57,7 +57,7 @@
 </section>
 <!--FileStack Photo -->
 <script>
-    const client = filestack.init('ABY8V4s1ETM2L3jaW4V5ez');
+    const client = filestack.init(filestackKey);
     var watermarkHandle = '';
 
     const getUserId = () => {
@@ -72,7 +72,7 @@
         // user id taken from external source ie: your database, Facebook etc.
         getUserId().then((response) => {
             const userId = response.userId;
-            const apikey = 'ABY8V4s1ETM2L3jaW4V5ez';
+            const apikey = filestackKey;
             const client = filestack.init(apikey);
             const options = {
                 uploadInBackground: false,
