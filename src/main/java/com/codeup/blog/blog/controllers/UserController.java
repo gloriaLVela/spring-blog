@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -42,6 +43,7 @@ public class UserController {
     public String saveUser(@ModelAttribute User newUser) {
         String hash = passwordEncoder.encode(newUser.getPassword());
         newUser.setPassword(hash);
+        newUser.setTime_stamp(new Date());
         userDao.save(newUser);
         return "redirect:/login";
     }
