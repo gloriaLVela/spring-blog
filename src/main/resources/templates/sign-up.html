@@ -32,10 +32,16 @@
                                        placeholder="topic descriptiion" th:required="required"/>
                             </div>
                             <div class="form-group">
-                                <label for="blog_image">Blog Image</label>
-                                <input id="blog_image" th:field="*{blog_image}" class="form-control"
-                                       placeholder="image url"
-                                       th:required="required"/>
+                                <label for="photoURL">Blog Image</label>
+                                <span>  <input  type="hidden"  th:field="*{blog_image}" th:name="photoURL" id="photoURL" value=""></span>
+                                <div class="d-flex justify-content-around">
+                                    <input class="btn btn-success" type="BUTTON" value="Upload Picture"
+                                           id="pickPhoto" style="margin-bottom: 1em;">
+<!--                                    <button class="btn btn-warning" id="confirm-picture" style="margin-bottom: 1em;">Save Picture</button>-->
+                                </div>
+<!--                                <input id="blog_image" th:field="*{blog_image}" class="form-control"-->
+<!--                                       placeholder="image url"-->
+<!--                                       th:required="required"/>-->
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>

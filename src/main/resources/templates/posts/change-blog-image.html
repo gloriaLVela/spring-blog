@@ -27,7 +27,7 @@
         </div>
         <div class="">
             <form th:action="@{'/changeBlogImage/' + ${user.getId()}}" th:method="post">
-                <span>  <input hidden th:name="photoURL" id="photoURL" value=""></span>
+                <span>  <input type="hidden" th:name="photoURL" id="photoURL" value=""></span>
                 <div class="d-flex justify-content-around">
                     <input class="btn btn-success" type="BUTTON" value="Upload Picture"
                            id="pickPhoto" style="margin-bottom: 1em;">

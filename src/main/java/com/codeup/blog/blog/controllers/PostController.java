@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -22,9 +23,6 @@ public class PostController {
     private final PostRepository postDao;
     private final UserRepository userDao;
     private final CategoryRepository categoryDao;
-
-    @Value("${file-upload-path}")
-    private String uploadPath;
 
     public PostController(PostRepository postDao,
                           UserRepository userDao,
@@ -142,6 +140,7 @@ public class PostController {
         newPost.setUser(loggedUser);
         addCategoriesPost(categories, newPost);
         newPost.setPicture_url(photoURL);
+        newPost.setTime_stamp(new Date());
         postDao.save(newPost);
         return "redirect:/myPosts";
     }

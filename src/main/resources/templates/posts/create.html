@@ -30,12 +30,15 @@
                            th:required="required"/>
                 </div>
                 <div class="form-group">
-                    <div style="width: 100%;">
-                        <img class="jumbotron jumbotron-fluid center center" src="*{picture_url}" th:src="*{picture_url}" id="imgPicture"  name="imgPicture"/>
+                    <div style="width: 100%; max-height: 600px; overflow: hidden;">
+                        <img class="center center" style=" object-fit: scale-down;
+            object-position: center;
+            background-size: cover; width:100%;" src="*{picture_url}" th:src="*{picture_url}" id="imgPicture"
+                             name="imgPicture"/>
                     </div>
-                    <span>  <input hidden th:name="photoURL" id="photoURL" value="" ></span>
+                    <span>  <input hidden th:name="photoURL" id="photoURL" value=""></span>
                     <input class="btn form-control btn-primary" type="BUTTON" value="Upload Picture"
-                                                    id="pickPhoto">
+                           id="pickPhoto">
                 </div>
                 <br>
                 <div class="form-group">
