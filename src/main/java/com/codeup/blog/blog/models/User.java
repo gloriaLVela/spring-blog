@@ -28,6 +28,9 @@ public class User {
     @Column(columnDefinition =  "Varchar(255)")
     private String blog_image;
 
+    @Column(columnDefinition =  "Varchar(255)")
+    private String blog_image_credit;
+
     @Column(name="timestamp", columnDefinition="DATETIME DEFAULT CURRENT_TIMESTAMP")
     private Date time_stamp;
 
@@ -54,14 +57,17 @@ public class User {
         password = copy.password;
         blog_description = copy.blog_description;
         blog_image = copy.blog_image;
+        blog_image_credit = copy.blog_image_credit;
     }
 
-    public User(String username, String email, String password, String blog_description, String blog_image) {
+    public User(String username, String email, String password, String blog_description, String blog_image, String blog_image_credit, Date time_stamp) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.blog_description = blog_description;
         this.blog_image = blog_image;
+        this.blog_image_credit = blog_image_credit;
+        this.time_stamp = time_stamp;
     }
 
     public long getId() {
@@ -135,6 +141,14 @@ public class User {
 
     public void setTime_stamp(Date time_stamp) {
         this.time_stamp = time_stamp;
+    }
+
+    public String getBlog_image_credit() {
+        return blog_image_credit;
+    }
+
+    public void setBlog_image_credit(String blog_image_credit) {
+        this.blog_image_credit = blog_image_credit;
     }
 
     @Override

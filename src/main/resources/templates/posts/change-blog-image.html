@@ -31,6 +31,9 @@
                 <div class="d-flex justify-content-around">
                     <input class="btn btn-success" type="BUTTON" value="Upload Picture"
                            id="pickPhoto" style="margin-bottom: 1em;">
+                        <label for="blog_image_credit">Enter name of the photographer or badge if it is not your picture</label>
+                        <input id="blog_image_credit" name="blog_image_credit" th:field="${user.blog_image_credit}" class="form-control" placeholder="photographer name or badge if not your picture"
+                               th:required="required"/>
                     <button class="btn btn-warning" id="confirm-picture" style="margin-bottom: 1em;">Save Picture</button>
                 </div>
             </form>

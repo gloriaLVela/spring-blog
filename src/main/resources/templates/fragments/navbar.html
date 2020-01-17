@@ -31,7 +31,7 @@
             </li>
             <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/changeImage">Blog Image</a></li>
 
-            <li sec:authorize="isAnonymous()"><a class="nav-link" href="/register">Register</a></li>
+            <li sec:authorize="isAnonymous()"><a class="nav-link" href="/register">Sign up</a></li>
             <li sec:authorize="isAnonymous()"><a class="nav-link" href="/login">Login</a></li>
             <li sec:authorize="isAuthenticated()">
                 <form class="nav-link" th:action="@{/logout}" th:method="post">

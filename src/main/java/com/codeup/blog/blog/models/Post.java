@@ -21,6 +21,9 @@ public class Post {
     @Column(columnDefinition = "VARCHAR(2000)")
     private String picture_url;
 
+    @Column(columnDefinition = "VARCHAR(2000)")
+    private String picture_credit;
+
     @Column(name="timestamp", columnDefinition="DATETIME DEFAULT CURRENT_TIMESTAMP")
     private Date time_stamp;
 

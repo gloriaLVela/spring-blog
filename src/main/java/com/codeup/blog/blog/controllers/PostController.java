@@ -112,6 +112,8 @@ public class PostController {
     @PostMapping("/changeBlogImage/{id}")
     public String updateBlogPicture(@PathVariable long id,
                                     @RequestParam(name = "photoURL",
+                                            required = false) String photoURL,
+                                    @RequestParam(name = "photoURL",
                                             required = false) String photoURL) {
         User loggedUser = userDao.getOne(id);
         loggedUser.setBlog_image(photoURL);
