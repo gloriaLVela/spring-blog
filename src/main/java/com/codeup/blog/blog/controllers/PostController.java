@@ -112,11 +112,14 @@ public class PostController {
     @PostMapping("/changeBlogImage/{id}")
     public String updateBlogPicture(@PathVariable long id,
                                     @RequestParam(name = "photoURL",
-                                            required = false) String photoURL) {
+                                            required = false) String photoURL,
+                                    @RequestParam(name = "blog_image_credit",
+                                            required = false) String blog_image_credit) {
         User loggedUser = userDao.getOne(id);
-        loggedUser.setBlog_image(photoURL);
+            loggedUser.setBlog_image(photoURL);
+        loggedUser.setBlog_image_credit(blog_image_credit);
         userDao.save(loggedUser);
-        return "redirect:/changeImage";
+        return "redirect:/myPosts";
     }
 
     @GetMapping("/posts/create")
@@ -211,7 +214,7 @@ public class PostController {
     public String delete(@PathVariable long id) {
         Post currentPost = postDao.getOne(id);
         List<Category> categoryList = currentPost.getCategories();
-        while(categoryList.size() > 0){
+        while (categoryList.size() > 0) {
             categoryList.remove(categoryList.get(0));
         }
         currentPost.setCategories(categoryList);
