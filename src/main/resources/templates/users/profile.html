@@ -16,6 +16,9 @@
             <p class="lead improveReadAbility"><span style="font-style: italic">started on <span
                     th:text="${user.getTime_stamp_String()}"></span></span>
             </p>
+            <div class="improveReadAbility">
+               Photo by:  <span th:text="${user.getBlog_image_credit()}" ></span>
+            </div>
         </div>
     </div>
     <!--List of posts-->
@@ -37,7 +40,7 @@
                                      src=" ${post.getPicture_url()}" th:src=" ${post.getPicture_url()}">
                             </div>
                         </div>
-                       <p th:utext="${#strings.replace(post.body, newLineChar, '&lt;br /&gt;')}" ></p>
+                        <p th:utext="${#strings.replace(post.body, newLineChar, '&lt;br /&gt;')}"></p>
 
                     </div>
 

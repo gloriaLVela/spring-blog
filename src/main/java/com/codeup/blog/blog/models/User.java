@@ -16,22 +16,22 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false, unique=true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, columnDefinition =  "Varchar(255)")
+    @Column(nullable = false, columnDefinition = "Varchar(255)")
     private String blog_description;
 
-    @Column(columnDefinition =  "Varchar(255)")
+    @Column(columnDefinition = "Varchar(255)")
     private String blog_image;
 
-    @Column(columnDefinition =  "Varchar(255)")
+    @Column(columnDefinition = "Varchar(255)")
     private String blog_image_credit;
 
-    @Column(name="timestamp", columnDefinition="DATETIME DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "timestamp", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private Date time_stamp;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -48,7 +48,8 @@ public class User {
         this.categories = categories;
     }
 
-    public User() {}
+    public User() {
+    }
 
     public User(User copy) {
         id = copy.id; // This line is SUPER important! Many things won't work if it's absent
@@ -107,7 +108,9 @@ public class User {
     }
 
     public void setBlog_image(String blog_image) {
-        this.blog_image = blog_image;
+        if (blog_image.length() > 0) {
+            this.blog_image = blog_image;
+        }
     }
 
     public List<Post> getPosts() {

@@ -12,33 +12,34 @@
 <div class="container">
     <div class="page-title">Change Blog Image</div>
     <div class="card">
-        <!--       <th:block th:value="${user}">-->
-        <!--           <div style="width: 100%;">-->
-        <!--               <img src="${blogImage}" th:src="${blogImage}" id="imgPicture"/>-->
-        <!--           </div>-->
-        <div class="jumbotron jumbotron-fluid"
-             th:style="'background:url(' + ${user.getBlog_image()} + '); background-size: cover;background-repeat: no-repeat; text-align: center; '">
-            <div class="container">
-                <h1 class="display-4 improveReadAbility"><span th:text="${user.getBlog_description()}"></span></h1>
-                <p class="lead improveReadAbility"><span style="font-style: italic">started on <span
-                        th:text="${user.getTime_stamp_String()}"></span></span>
-                </p>
+        <div class="card inner-card">
+            <div class="jumbotron jumbotron-fluid"
+                 th:style="'background:url(' + ${user.getBlog_image()} + '); background-size: cover;background-repeat: no-repeat; text-align: center; '">
+                <div class="container">
+                    <h1 class="display-4 improveReadAbility"><span th:text="${user.getBlog_description()}"></span></h1>
+                    <p class="lead improveReadAbility"><span style="font-style: italic">started on <span
+                            th:text="${user.getTime_stamp_String()}"></span></span>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <form th:action="@{'/changeBlogImage/' + ${user.getId()}}" th:method="post">
+
+                    <input type="hidden" th:name="photoURL" id="photoURL" th:value="${user.blog_image}">
+                    <input class="btn btn-success form-control" type="BUTTON" value="Upload Picture"
+                           id="pickPhoto" style="margin-bottom: 1em;">
+
+                    <label for="blog_image_credit">Enter name of the photographer if it is not your picture</label>
+
+                    <input id="blog_image_credit" name="blog_image_credit" th:field="${user.blog_image_credit}"
+                           class="form-control" placeholder="photographer name or badge if not your picture"
+                           th:required="required"/>
+                    <button class="btn btn-warning form-control" id="confirm-picture"
+                            style="margin-bottom: 1em; margin-top: 1em;">Save Picture
+                    </button>
+                </form>
             </div>
         </div>
-        <div class="">
-            <form th:action="@{'/changeBlogImage/' + ${user.getId()}}" th:method="post">
-                <span>  <input type="hidden" th:name="photoURL" id="photoURL" value=""></span>
-                <div class="d-flex justify-content-around">
-                    <input class="btn btn-success" type="BUTTON" value="Upload Picture"
-                           id="pickPhoto" style="margin-bottom: 1em;">
-                        <label for="blog_image_credit">Enter name of the photographer or badge if it is not your picture</label>
-                        <input id="blog_image_credit" name="blog_image_credit" th:field="${user.blog_image_credit}" class="form-control" placeholder="photographer name or badge if not your picture"
-                               th:required="required"/>
-                    <button class="btn btn-warning" id="confirm-picture" style="margin-bottom: 1em;">Save Picture</button>
-                </div>
-            </form>
-        </div>
-        <!--       </th:block>-->
     </div>
 </div>
 <!--FileStack Photo -->
