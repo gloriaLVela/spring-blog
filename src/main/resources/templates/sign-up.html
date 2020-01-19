@@ -33,15 +33,18 @@
                             </div>
                             <div class="form-group">
                                 <label for="photoURL">Blog Image</label>
-                                <span>  <input  type="hidden"  th:field="*{blog_image}" th:name="photoURL" id="photoURL" value=""></span>
+                                <span>  <input type="hidden" th:field="*{blog_image}" th:name="photoURL" id="photoURL"
+                                               value=""></span>
                                 <div class="d-flex justify-content-around">
                                     <input class="btn btn-success" type="BUTTON" value="Upload Picture"
                                            id="pickPhoto" style="margin-bottom: 1em;">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="blog_image_credit">Enter name of the photographer if it is not your picture</label>
-                                <input id="blog_image_credit" th:field="*{blog_image_credit}" class="form-control" placeholder="photographer name or badge if not your picture"
+                                <label for="blog_image_credit">Enter name of the photographer if it is not your
+                                    picture</label>
+                                <input id="blog_image_credit" th:field="*{blog_image_credit}" class="form-control"
+                                       placeholder="photographer name or badge if not your picture"
                                        th:required="required"/>
                             </div>
                             <div class="form-group">
@@ -73,7 +76,7 @@
                 style="display:inline-block;padding:2px 3px">Jan Kahánek</span></a>
     </div>
 </div>
-<!--FileStack Photo -->
+<!--FileStack API -->
 <script>
     const client = filestack.init(filestackKey);
     var watermarkHandle = '';
@@ -100,9 +103,7 @@
                     watermarkHandle = objJSON['url'];
                     document.getElementById("photoURL").value = watermarkHandle;
                     document.getElementById("imgPicture").src = watermarkHandle;
-                    // console.log(document.getElementById("photoURL").value);
-                    return watermarkHandle;
-
+                     return watermarkHandle;
                 }
             };
             const picker = client.picker(options);

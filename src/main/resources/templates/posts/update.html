@@ -68,7 +68,7 @@
         </div>
     </div>
 </section>
-<!--FileStack Photo -->
+<!--FileStack API -->
 <script>
     const client = filestack.init(filestackKey);
     var watermarkHandle = '';
@@ -91,17 +91,12 @@
                 uploadInBackground: false,
                 onFileUploadFinished: (response) => {
                     var objJSON = (response);
-                    //alert('response ' + response);
-                    //console.log(response);
                     //Sets the watermark handle to the handle of the first file in the result
                     watermarkHandle = objJSON['url'];
                     console.log(objJSON['url']);
                     document.getElementById("photoURL").value = watermarkHandle;
-                    // document.getElementById("imgPicture").src = watermarkHandle;
-                    // var imageUrl =  watermarkHandle;
                     $("#imgPicture").css("background-image", "url(" + watermarkHandle + ")");
-                    // console.log(document.getElementById("imgPicture").value);
-                    return watermarkHandle;
+                     return watermarkHandle;
 
                 }
             };

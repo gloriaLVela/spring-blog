@@ -112,14 +112,7 @@ ul {
 .inner-card {
     border-color: white;
 }
-/*.card-title {*/
-/*    !*color: #3F3C3C;*!*/
-/*    text-shadow: .1em .1em lightgrey;*/
-/*}*/
 
-/*.card-body{*/
-/*    color: #a8a660;*/
-/*}*/
 .jumbotronImg {
     object-fit: none !important;
     background-repeat: no-repeat !important;
@@ -133,13 +126,12 @@ ul {
     color: #dadfbc;
 }
 
-.orange {
-    color: #e88e01;
+.nav-link {
+    color: #868e96;
 }
 
-.post-title{
-    text-transform: capitalize;
-    font-size: 1.5em;
+.orange {
+    color: #e88e01;
 }
 
 .page-title {
@@ -148,8 +140,9 @@ ul {
     text-transform: capitalize;
 }
 
-.nav-link {
-color: #868e96;
+.post-title{
+    text-transform: capitalize;
+    font-size: 1.5em;
 }
 
 .postDescription{
@@ -157,12 +150,14 @@ color: #868e96;
     flex-direction: row;
     justify-content: space-around;
 }
+
 .section-title {
     font-size: 1.75em;
     margin-top: 1em;
 }
 
 .split-lines{}
+
 /*************************/
 /*      Element ID       */
 /*************************/
@@ -179,18 +174,18 @@ color: #868e96;
     flex-direction: column;
 }
 
+#postGrid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: .1em;
+    overflow: auto;
+}
+
 #postList {
     display: flex;
     flex-direction: column;
     max-height: 100vh;
     /*justify-content: space-around;*/
-    overflow: auto;
-}
-
-#postGrid{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: .1em;
     overflow: auto;
 }
 
