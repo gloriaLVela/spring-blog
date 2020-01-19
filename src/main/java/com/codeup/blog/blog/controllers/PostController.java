@@ -185,10 +185,13 @@ public class PostController {
     @PostMapping("add-photo/{id}")
     public String addPhoto(@PathVariable long id,
                            @RequestParam(name = "photoURL",
-                                   required = false) String photoURL) {
+                                   required = false) String photoURL,
+                           @RequestParam(name = "picture_credit",
+                                   required = false) String picture_credit) {
         Post post = postDao.getOne(id);
         System.out.println("photoURL = " + photoURL);
         post.setPicture_url(photoURL);
+        post.setPicture_credit(picture_credit);
         postDao.save(post);
         return "redirect:/posts/" + post.getId() + "/update";
 
