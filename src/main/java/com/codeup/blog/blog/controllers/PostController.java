@@ -103,7 +103,6 @@ public class PostController {
     @GetMapping("/changeImage")
     public String changeBlogPicture(Model vModel) {
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        vModel.addAttribute("blogImage", loggedUser.getBlog_image());
         vModel.addAttribute("user", userDao.getOne(loggedUser.getId()));
         vModel.addAttribute("userId", loggedUser.getId());
         return "/posts/change-blog-image";
