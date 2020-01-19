@@ -124,5 +124,13 @@ public class Post {
     public void setPicture_url(String picture_url) {
         this.picture_url = picture_url;
     }
+
+    public String getPicture_credit() {
+        return picture_credit;
+    }
+
+    public void setPicture_credit(String picture_credit) {
+        this.picture_credit = picture_credit;
+    }
 }
 

@@ -85,7 +85,6 @@ public class PostController {
         for (Post currentPost : posts) {
             currentPost.getCategories();
         }
-//        viewModel.addAttribute("user", posts.);
         viewModel.addAttribute("posts", posts);
         return "posts/index";
     }
@@ -103,7 +102,6 @@ public class PostController {
     @GetMapping("/changeImage")
     public String changeBlogPicture(Model vModel) {
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        vModel.addAttribute("blogImage", loggedUser.getBlog_image());
         vModel.addAttribute("user", userDao.getOne(loggedUser.getId()));
         vModel.addAttribute("userId", loggedUser.getId());
         return "/posts/change-blog-image";
@@ -185,10 +183,13 @@ public class PostController {
     @PostMapping("add-photo/{id}")
     public String addPhoto(@PathVariable long id,
                            @RequestParam(name = "photoURL",
-                                   required = false) String photoURL) {
+                                   required = false) String photoURL,
+                           @RequestParam(name = "picture_credit",
+                                   required = false) String picture_credit) {
         Post post = postDao.getOne(id);
         System.out.println("photoURL = " + photoURL);
         post.setPicture_url(photoURL);
+        post.setPicture_credit(picture_credit);
         postDao.save(post);
         return "redirect:/posts/" + post.getId() + "/update";
 

@@ -10,7 +10,7 @@
 <div th:replace="fragments/navbar :: main-navbar"></div>
 <section class="container">
     <div class="page-title">Update Post</div>
-<!--    Main container-->
+    <!--    Main container-->
     <div class="container">
         <div class="card">
             <div class=" jumbotronImg" style="margin: 1em;">
@@ -19,9 +19,15 @@
                      th:src="${post.getPicture_url()}" style="max-height: 200px;"/>
             </div>
             <form th:action="@{'/add-photo/' + ${post.id}}" th:method="post">
-                <input hidden th:name="photoURL" id="photoURL" value="">
-
+                <input hidden th:name="photoURL" id="photoURL" th:value="${post.getPicture_url()}">
+                <label for="picture_credit">Please enter the name of the photographer if you do not own the
+                    picture </label>
+                <br>
+                <input class="form-control" type="text" th:field="${post.picture_credit}"
+                       id="picture_credit" name="picture_credit">
+                <br>
                 <div class="d-flex justify-content-around">
+
                     <input class="btn btn-success" type="BUTTON" value="Upload Picture"
                            id="pickPhoto" style="margin-bottom: 1em;">
                     <button class="btn btn-warning" id="confirm-picture" style="margin-bottom: 1em;">Save Picture

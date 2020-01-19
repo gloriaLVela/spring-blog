@@ -16,10 +16,12 @@
             <p class="lead improveReadAbility"><span style="font-style: italic">started on <span
                     th:text="${user.getTime_stamp_String()}"></span></span>
             </p>
-            <div class="improveReadAbility">
-               Photo by:  <span th:text="${user.getBlog_image_credit()}" ></span>
-            </div>
+
         </div>
+
+    </div>
+    <div class="improveReadAbility" style="margin-top: -4.5em; margin-bottom: 2em;">
+        &nbsp;Photo by:  <span th:text="${user.getBlog_image_credit()}" ></span>
     </div>
     <!--List of posts-->
     <div id="postList">
@@ -38,6 +40,9 @@
                             <div class="cropped" style="margin: 1em;">
                                 <img th:style="${post.getPicture_url() == null} ? 'default' : 'none'"
                                      src=" ${post.getPicture_url()}" th:src=" ${post.getPicture_url()}">
+                            </div>
+                            <div class="improveReadAbility" style="margin-top: -4.5em; margin-bottom: 2em;">
+                                &nbsp;Photo by:  <span th:text="${post.getPicture_credit()}" ></span>
                             </div>
                         </div>
                         <p th:utext="${#strings.replace(post.body, newLineChar, '&lt;br /&gt;')}"></p>
