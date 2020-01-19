@@ -85,7 +85,6 @@ public class PostController {
         for (Post currentPost : posts) {
             currentPost.getCategories();
         }
-//        viewModel.addAttribute("user", posts.);
         viewModel.addAttribute("posts", posts);
         return "posts/index";
     }
