@@ -6,8 +6,6 @@ import com.codeup.blog.blog.repositories.CategoryRepository;
 import com.codeup.blog.blog.repositories.PostRepository;
 import com.codeup.blog.blog.models.Post;
 import com.codeup.blog.blog.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,7 +55,6 @@ public class PostController {
     public String featuredPost(Model viewModel) {
         List<User> users = userDao.findAll();
         List<Post> posts = postDao.findAll();
-//        Post currentPost = new Post();
         for (User currentUser : users) {
             posts.add(userDao.findByUsername(currentUser.getUsername()).getPosts().get(0));
         }
@@ -114,7 +111,7 @@ public class PostController {
                                     @RequestParam(name = "blog_image_credit",
                                             required = false) String blog_image_credit) {
         User loggedUser = userDao.getOne(id);
-            loggedUser.setBlog_image(photoURL);
+        loggedUser.setBlog_image(photoURL);
         loggedUser.setBlog_image_credit(blog_image_credit);
         userDao.save(loggedUser);
         return "redirect:/myPosts";
@@ -155,7 +152,6 @@ public class PostController {
 
     @GetMapping("/posts/{id}/update")
     public String updatePost(@PathVariable long id, Model viewModel) {
-//        System.out.println("Post update");
         int index;
         viewModel.addAttribute("picURL", postDao.getOne(id).getPicture_url());
         viewModel.addAttribute("post", postDao.getOne(id));
@@ -202,7 +198,6 @@ public class PostController {
                          @RequestParam(value = "categories",
                                  required = false) int[] categories) {
         Post oldPost = postDao.getOne(id);
-        Category category;
         oldPost.setTitle(title);
         oldPost.setBody(body);
         addCategoriesPost(categories, oldPost);

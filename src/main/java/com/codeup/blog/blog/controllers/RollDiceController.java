@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
-import static java.lang.Math.random;
-
 @Controller
 public class RollDiceController {
 

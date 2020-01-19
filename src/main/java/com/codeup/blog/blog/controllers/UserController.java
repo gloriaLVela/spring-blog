@@ -19,11 +19,7 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    //private final UserRepository users;
-
     private PasswordEncoder passwordEncoder;
-
-
     private final UserRepository userDao;
 
 
