@@ -13,16 +13,14 @@
         <div th:each="user : ${users}">
             <div class="card">
                 <a th:href="@{'showBlog/' + ${user.id}}">
-                    <div class="jumbotron jumbotron-fluid"
-                         th:style="'background:url(' + ${user.getBlog_image()} + '); background-size: cover;background-repeat: no-repeat; text-align: center; '">
-                        <div class="container">
-                            <h1 class="display-4 improveReadAbility"><span
-                                    th:text="${user.getBlog_description()}"></span></h1>
-                            <p class="lead improveReadAbility"><span style="font-style: italic">started on <span
-                                    th:text="${user.getTime_stamp_String()}"></span></span>
-                            </p>
-                        </div>
+                <div class="jumbotron jumbotron-fluid" th:style="'background:url(' + ${user.getBlog_image()} + '); background-size: cover;background-repeat: no-repeat; text-align: center; '" >
+                    <div class="container">
+                        <h1 class="display-4 improveReadAbility"><span th:text="${user.getBlog_description()}"></span></h1>
+                        <p class="lead improveReadAbility"><span style="font-style: italic">started on <span
+                                th:text="${user.getTime_stamp_String()}"></span></span>
+                        </p>
                     </div>
+                </div>
                 </a>
                 <div th:each="post : ${user.getPosts().get(0)}">
                     <div class="post-title" th:text="${post.title}"></div>

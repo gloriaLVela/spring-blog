@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <th:block th:replace="fragments/header :: main-header"/>
 </head>
@@ -20,7 +21,7 @@
 
     </div>
     <div class="improveReadAbility" style="margin-top: -4.5em; margin-bottom: 2em;">
-        &nbsp;Photo by: <span th:text="${user.getBlog_image_credit()}"></span>
+        &nbsp;Photo by:  <span th:text="${user.getBlog_image_credit()}" ></span>
     </div>
     <!--List of posts-->
     <div id="postList">
@@ -41,7 +42,7 @@
                                      src=" ${post.getPicture_url()}" th:src=" ${post.getPicture_url()}">
                             </div>
                             <div class="improveReadAbility" style="margin-top: -4.5em; margin-bottom: 2em;">
-                                &nbsp;Photo by: <span th:text="${post.getPicture_credit()}"></span>
+                                &nbsp;Photo by:  <span th:text="${post.getPicture_credit()}" ></span>
                             </div>
                         </div>
                         <p th:utext="${#strings.replace(post.body, newLineChar, '&lt;br /&gt;')}"></p>
