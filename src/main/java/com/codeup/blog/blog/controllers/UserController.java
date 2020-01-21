@@ -28,6 +28,8 @@ public class UserController {
 
     private final UserRepository userDao;
 
+    private String registerError = "";
+
 
     public UserController(UserRepository userDao, PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
@@ -37,6 +39,7 @@ public class UserController {
     @GetMapping("/register")
     public String registerUser(Model viewModel) {
         viewModel.addAttribute("user", new User());
+        viewModel.addAttribute("error", registerError);
         return "/sign-up";
     }
 
@@ -50,6 +53,7 @@ public class UserController {
 
         String hash = passwordEncoder.encode(newUser.getPassword());
         newUser.setPassword(hash);
+        registerError = "";
         // Verify the email format
 
         Pattern pattern = Pattern.compile(regexUS);
@@ -57,15 +61,17 @@ public class UserController {
         Matcher matcher = pattern.matcher(newUser.getEmail());
 
         if (!matcher.matches()) {
-            viewModel.addAttribute("error", "Please provide a correct email format");
-            return "register";
+            registerError = "Please provide a correct email format";
+           // viewModel.addAttribute("error", "Please provide a correct email format");
+            return "redirect:/register";
         }
 
         User duplicateEmail = userDao.findByEmail(newUser.getEmail());
         if (duplicateEmail != null){
             System.out.println("duplicate email");
-            viewModel.addAttribute("duplicateEmail", "Please provide a different email");
-            return "register";
+            registerError = "Please provide a different email";
+//            viewModel.addAttribute("duplicateEmail", "Please provide a different email");
+            return "redirect:/register";
         }
 
         // Check for duplicates

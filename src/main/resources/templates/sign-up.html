@@ -14,58 +14,53 @@
 <body id="mainDiv">
 <div style="display: flex; flex-direction:column; justify-content: flex-start; height: 100vh;">
     <div th:replace="fragments/navbar :: main-navbar"></div>
-    <div class="container" style="margin: auto;">
-        <div style="display: flex; justify-content: center;">
-            <div style="display: flex; flex-direction:column; align-content: space-around;">
-                <div class="card">
-                    <div th:if="${param.duplicateUserName}">
-                        Duplicate user name.
-                    </div>
-                    <div th:if="${param.duplicateEmail}">
-                        Duplicate email.
-                    </div>
-                    <div th:if="${param.error}">
-                        Email has the wrong format.
-                    </div>
-                    <form th:action="@{/sign-up}" method="POST" th:object="${user}" class="form-group">
-                        <div class="card inner-card">
-                            <div class="page-title">Create account</div>
-                            <div class="form-group">
-                                <label for="username" class="">User name: </label>
-                                <input id="username" class="form-control" th:field="*{username}" placeholder="user name"
-                                       th:required="required"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="details">Topic description: </label>
-                                <input id="details" th:field="*{blog_description}" class="form-control"
-                                       placeholder="topic descriptiion" th:required="required"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="photoURL">Blog Image</label>
-                                <span>  <input  type="hidden"  th:field="*{blog_image}" th:name="photoURL" id="photoURL" value=""></span>
-                                <div class="d-flex justify-content-around">
-                                    <input class="btn btn-success" type="BUTTON" value="Upload Picture"
-                                           id="pickPhoto" style="margin-bottom: 1em;">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="blog_image_credit">Enter name of the photographer if it is not your picture</label>
-                                <input id="blog_image_credit" th:field="*{blog_image_credit}" class="form-control" placeholder="photographer name or badge if not your picture"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input id="email" th:field="*{email}" class="form-control" placeholder="email"
-                                       th:required="required"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input id="password" type="password" th:field="*{password}" class="form-control"
-                                       th:required="required"/>
-                            </div>
-                            <input value="Sign me up!" type="submit" class="btn btn-block btn-primary"/>
+    <div class="container" style="margin-top: 2.15em;">
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <div class="card">
+                <th:block th:if="${error}" style="margin-top: 3em;">
+                    <div th:text="${error}"></div>
+                </th:block>
+                <form th:action="@{/sign-up}" method="POST" th:object="${user}" class="form-group">
+                    <div class="card inner-card">
+                        <div class="page-title">Create account</div>
+                        <div class="form-group">
+                            <label for="username" class="">User name: </label>
+                            <input id="username" class="form-control" th:field="*{username}" placeholder="user name"
+                                   th:required="required"/>
                         </div>
-                    </form>
-                </div>
+                        <div class="form-group">
+                            <label for="details">Topic description: </label>
+                            <input id="details" th:field="*{blog_description}" class="form-control"
+                                   placeholder="topic descriptiion" th:required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <!--                                <label for="photoURL">Blog Image</label>-->
+                            <span>  <input type="hidden" th:field="*{blog_image}" th:name="photoURL" id="photoURL"
+                                           value=""></span>
+                            <div class="d-flex justify-content-around">
+                                <input class="btn btn-success" type="BUTTON" value="Upload Blog Picture"
+                                       id="pickPhoto" style="margin-bottom: .25em;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="blog_image_credit">Enter name of the photographer if it is not your
+                                picture</label>
+                            <input id="blog_image_credit" th:field="*{blog_image_credit}" class="form-control"
+                                   placeholder="photographer name or badge if not your picture"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input id="email" th:field="*{email}" class="form-control" placeholder="email"
+                                   th:required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input id="password" type="password" th:field="*{password}" class="form-control"
+                                   th:required="required"/>
+                        </div>
+                        <input value="Sign me up!" type="submit" class="btn btn-block btn-primary"/>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
