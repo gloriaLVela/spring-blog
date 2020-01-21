@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Controller
@@ -26,6 +28,8 @@ public class UserController {
 
     private final UserRepository userDao;
 
+    private String registerError = "";
+
 
     public UserController(UserRepository userDao, PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
@@ -35,14 +39,42 @@ public class UserController {
     @GetMapping("/register")
     public String registerUser(Model viewModel) {
         viewModel.addAttribute("user", new User());
+        viewModel.addAttribute("error", registerError);
         return "/sign-up";
     }
 
 
     @PostMapping("/sign-up")
-    public String saveUser(@ModelAttribute User newUser) {
+    public String saveUser(@ModelAttribute User newUser
+            , Model viewModel) {
+        String regexUS = "^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$";
+        String regexInternational = "^\\+(?:[0-9] ?){6,14}[0-9]$";
+        String regexEmail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+
         String hash = passwordEncoder.encode(newUser.getPassword());
         newUser.setPassword(hash);
+        registerError = "";
+        // Verify the email format
+
+        Pattern pattern = Pattern.compile(regexUS);
+        pattern = Pattern.compile(regexEmail);
+        Matcher matcher = pattern.matcher(newUser.getEmail());
+
+        if (!matcher.matches()) {
+            registerError = "Please provide a correct email format";
+           // viewModel.addAttribute("error", "Please provide a correct email format");
+            return "redirect:/register";
+        }
+
+        User duplicateEmail = userDao.findByEmail(newUser.getEmail());
+        if (duplicateEmail != null){
+            System.out.println("duplicate email");
+            registerError = "Please provide a different email";
+//            viewModel.addAttribute("duplicateEmail", "Please provide a different email");
+            return "redirect:/register";
+        }
+
+        // Check for duplicates
         newUser.setTime_stamp(new Date());
         userDao.save(newUser);
         return "redirect:/login";
