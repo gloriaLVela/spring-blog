@@ -63,7 +63,8 @@ public class UserController {
 
         User duplicateEmail = userDao.findByEmail(newUser.getEmail());
         if (duplicateEmail != null){
-            viewModel.addAttribute("error", "Please provide a different email");
+            System.out.println("duplicate email");
+            viewModel.addAttribute("duplicateEmail", "Please provide a different email");
             return "register";
         }
 

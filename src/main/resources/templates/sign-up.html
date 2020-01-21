@@ -18,6 +18,15 @@
         <div style="display: flex; justify-content: center;">
             <div style="display: flex; flex-direction:column; align-content: space-around;">
                 <div class="card">
+                    <div th:if="${param.duplicateUserName}">
+                        Duplicate user name.
+                    </div>
+                    <div th:if="${param.duplicateEmail}">
+                        Duplicate email.
+                    </div>
+                    <div th:if="${param.error}">
+                        Email has the wrong format.
+                    </div>
                     <form th:action="@{/sign-up}" method="POST" th:object="${user}" class="form-group">
                         <div class="card inner-card">
                             <div class="page-title">Create account</div>
@@ -41,8 +50,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="blog_image_credit">Enter name of the photographer if it is not your picture</label>
-                                <input id="blog_image_credit" th:field="*{blog_image_credit}" class="form-control" placeholder="photographer name or badge if not your picture"
-                                       th:required="required"/>
+                                <input id="blog_image_credit" th:field="*{blog_image_credit}" class="form-control" placeholder="photographer name or badge if not your picture"/>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
